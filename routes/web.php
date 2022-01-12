@@ -27,10 +27,6 @@ use Illuminate\Support\Facades\Route;
 // });
 
 
-Route::post('/register', [AuthController::class, 'register']);
-Route::get('/login', [AuthController::class, 'login']);
-Route::get('/logout', [AuthController::class, 'logout']);
-
 Route::get('{any}', function () {
     $data = ['data' => [
         'users' => User::all(),

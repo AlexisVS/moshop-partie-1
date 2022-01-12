@@ -5693,18 +5693,16 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       var form = new FormData(this.$refs.form.$el);
-      form.append('firstName', this.firstName);
-      form.append('firstName', this.firstName);
-      form.append('lastName', this.lastName);
+      form.append('first_name', this.firstName);
+      form.append('last_name', this.lastName);
       form.append('email', this.email);
       form.append('password', this.password);
       form.append('password_confirmation', this.password);
-      form.append('avatar', this.avatar);
+      form.append('picture_path', this.avatar);
       axios__WEBPACK_IMPORTED_MODULE_0___default().post('/register', form).then(function (res) {
         return res.status == 200 && _this.$emit('registerSuccess', false);
-      });
-      this.$refs.form.validate();
-      this.$refs.form.reset();
+      }); // this.$refs.form.validate();
+      // this.$refs.form.reset();
     },
     handleInputAvatar: function handleInputAvatar(file) {
       this.avatar = file;

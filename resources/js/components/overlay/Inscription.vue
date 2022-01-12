@@ -98,18 +98,17 @@ export default {
   methods: {
     validate () {
       let form = new FormData(this.$refs.form.$el)
-      form.append('firstName', this.firstName)
-      form.append('firstName', this.firstName)
-      form.append('lastName', this.lastName)
+      form.append('first_name', this.firstName)
+      form.append('last_name', this.lastName)
       form.append('email', this.email)
       form.append('password', this.password)
       form.append('password_confirmation', this.password)
-      form.append('avatar', this.avatar)
+      form.append('picture_path', this.avatar)
       axios
         .post('/register', form)
         .then(res => res.status == 200 && this.$emit('registerSuccess', false));
-      this.$refs.form.validate();
-      this.$refs.form.reset();
+      // this.$refs.form.validate();
+      // this.$refs.form.reset();
     },
     handleInputAvatar (file) {
       this.avatar = file;
