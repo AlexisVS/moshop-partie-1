@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AppController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Models\Shop;
@@ -26,15 +27,8 @@ use Illuminate\Support\Facades\Route;
 //     return ['token' => $token->plainTextToken];
 // });
 
-
-Route::get('{any}', function () {
-    $data = ['data' => [
-        'users' => User::all(),
-        'shops' => Shop::all(),
-    ]];
-
-    return view('app', $data);
-})->where('any', '.*');
+Route::get('/profile', [AppController::class, 'profile']);
+Route::get('{any}', [AppController::class, 'index'])->where('any', '.*');
 
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
