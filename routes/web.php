@@ -1,6 +1,11 @@
 <?php
 
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
+use App\Models\Shop;
+use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,11 +18,27 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('{any?}', function () {
-    $data = json_encode(['data' => 'sqdqsdqsdqsdsq']);
+
+
+// Route::post('/tokens/create', function (Request $request) {
+//     $token = $request->user()->createToken($request->token_name);
+    
+//     return ['token' => $token->plainTextToken];
+// });
+
+
+Route::post('/register', [AuthController::class, 'register']);
+Route::get('/login', [AuthController::class, 'login']);
+Route::get('/logout', [AuthController::class, 'logout']);
+
+Route::get('{any}', function () {
+    $data = ['data' => [
+        'users' => User::all(),
+        'shops' => Shop::all(),
+    ]];
 
     return view('app', $data);
-});
+})->where('any', '.*');
 
 // Route::get('/dashboard', function () {
 //     return view('dashboard');

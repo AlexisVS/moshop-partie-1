@@ -33,6 +33,7 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    
     /**
      * The attributes that should be cast.
      *
@@ -55,6 +56,6 @@ class User extends Authenticatable
     }
 
     public function commandes () {
-        return $this->hasOne(Commande::class);
+        return $this->hasMany(Commande::class);
     }
 }
