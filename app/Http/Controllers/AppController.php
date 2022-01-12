@@ -12,11 +12,7 @@ class AppController extends Controller
 {
     public function index()
     {
-        $data = ['data' => [
-            'users' => User::all(),
-            'shops' => Shop::all(),
-        ]];
-        return view('app', $data);
+        return view('app');
     }
 
     public function profile()

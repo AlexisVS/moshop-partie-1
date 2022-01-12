@@ -12,8 +12,8 @@
   <div id="app">
     <vue_app />
   </div>
-  <script>
+  {{-- <script>
     window.data = @json($data);
-  </script>
+  </script> --}}
 </body>
 </html>

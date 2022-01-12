@@ -17,7 +17,7 @@ class CreatePaniersTable extends Migration
             $table->id();
             $table->integer('quantity');
             $table->foreignId('user_id')->constrained();
-            $table->bigInteger('article_id');
+            $table->bigInteger('article_id')->nullable();
             $table->timestamps();
         });
     }

@@ -10,4 +10,7 @@ class Commande extends Model
     use HasFactory;
     protected $table = 'commandes';
     protected $guarded = false;
+    protected $casts = [
+        'json_arr_articles_id' => 'array'
+    ];
 }

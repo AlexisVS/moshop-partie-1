@@ -14,7 +14,10 @@ class ArticleFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'description' => $this->faker->text(150),
+            'name' => $this->faker->lastName(),
+            'cover_path' => 'default.jpg',
+            'price' => $this->faker->numberBetween(1, 15),
         ];
     }
 }

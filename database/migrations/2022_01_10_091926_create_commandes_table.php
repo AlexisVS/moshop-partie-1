@@ -18,6 +18,7 @@ class CreateCommandesTable extends Migration
             $table->foreignId('user_id')->constrained();
             $table->date('date');
             $table->integer('price');
+            $table->json('json_arr_articles_id');
             $table->timestamps();
         });
     }

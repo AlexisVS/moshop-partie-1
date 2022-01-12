@@ -19,7 +19,7 @@ class CreateArticlesTable extends Migration
             $table->string('description');
             $table->string('cover_path');
             $table->integer('price');
-            $table->foreignId('shop_id')->constrained();
+            $table->foreignId('shop_id')->nullable()->constrained();
             $table->timestamps();
         });
     }

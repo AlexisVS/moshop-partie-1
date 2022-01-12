@@ -14,7 +14,9 @@ class ProfileFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'first_name' => $this->faker->firstName(),
+            'last_name' => $this->faker->lastName(),
+            'picture_path' => 'default.jpg',
         ];
     }
 }

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AppController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Models\Shop;
 use App\Models\User;
@@ -28,6 +29,7 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::get('/profile', [AppController::class, 'profile']);
+route::get('/app/home', [HomeController::class, 'index']);
 Route::get('{any}', [AppController::class, 'index'])->where('any', '.*');
 
 // Route::get('/dashboard', function () {

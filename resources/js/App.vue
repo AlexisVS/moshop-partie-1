@@ -77,7 +77,7 @@ export default {
     Profile
   },
   mounted () {
-    this.data = window.data;
+    // this.data = window.data;
     axios.get('/profile').then(res => {
       if (res.status == 200) {
         this.profile = res.data.data

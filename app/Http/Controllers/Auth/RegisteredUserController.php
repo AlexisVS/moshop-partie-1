@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Panier;
 use App\Models\Profile;
 use App\Models\Shop;
 use App\Models\User;
@@ -61,6 +62,10 @@ class RegisteredUserController extends Controller
             'picture_path' => $request->file('picture_path')->hashName(),
             'user_id' => $user->id,
         ]);
+
+        Panier::create([
+
+        ])
 
         event(new Registered($user));
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Shop;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +24,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $shop = Shop::find(1);
+        $data = [
+            'shop' => $shop,
+            'products' => $shop->articles
+        ];
+        return response()->json($data);
     }
 }
