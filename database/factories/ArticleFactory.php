@@ -18,6 +18,7 @@ class ArticleFactory extends Factory
             'name' => $this->faker->lastName(),
             'cover_path' => 'default.jpg',
             'price' => $this->faker->numberBetween(1, 15),
+            'quantity' => $this->faker->numberBetween(1, 150),
         ];
     }
 }
