@@ -116,7 +116,7 @@ class AppController extends Controller
 
         if ($paniers->count() > 1) {
             foreach ($paniers as $panier) {
-                if ($firstPanier->shop_id != $lastPanier->shop_id) {
+                if ($panier->shop_id != $lastPanier->shop_id) {
                     $panier->delete();
                 }
             }
