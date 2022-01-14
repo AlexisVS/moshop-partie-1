@@ -95,10 +95,10 @@ class AppController extends Controller
      * Clean up the user card by comparison between articles->shop_id of the first and the last
      * Reduce the quantity of @model Article with their correspond paniers product_id and quantity
      * Store all Carts id to @model Command->articles_id in JSON format 
+     * @return Illuminate\Http\Response
      */
     public function buy()
     {
-
         $user = Auth::user();
         $paniers = $user->paniers;
 
