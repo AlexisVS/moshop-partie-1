@@ -11,6 +11,6 @@ class Shop extends Model
     protected $table = 'shops';
     protected $guarded = false;
     public function articles() {
-        return $this->hasOne(Article::class);
+        return $this->hasMany(Article::class);
     }
 }

@@ -63,10 +63,6 @@ class RegisteredUserController extends Controller
             'user_id' => $user->id,
         ]);
 
-        Panier::create([
-
-        ])
-
         event(new Registered($user));
 
         Auth::login($user);

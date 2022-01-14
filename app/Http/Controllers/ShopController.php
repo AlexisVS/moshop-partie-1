@@ -15,7 +15,9 @@ class ShopController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json([
+            'data' => Shop::all(),
+        ],200);
     }
 
     /**
@@ -45,9 +47,9 @@ class ShopController extends Controller
      * @param  \App\Models\Shop  $shop
      * @return \Illuminate\Http\Response
      */
-    public function show(Shop $shop)
+    public function show($shopId)
     {
-        //
+        return response()->json(Shop::find($shopId), 200);
     }
 
     /**

@@ -20,7 +20,7 @@ export default {
       },
       {
         text: 'Profile',
-        link: '/profiles',
+        link: '/profile',
       },
       {
         text: 'Commande',
@@ -28,7 +28,7 @@ export default {
       },
       {
         text: 'Panier',
-        link: '/paniers',
+        link: '/panier',
       },
       {
         text: 'Shop',

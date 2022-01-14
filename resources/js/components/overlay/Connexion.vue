@@ -62,7 +62,7 @@ export default {
       form.append('password', this.password)
       axios
         .post('/login', form)
-        .then(res => console.log(res))
+        .then(res => res.status = 200 && this.$emit('loginSuccess', false))
         .then(err => console.log(err));
       this.$refs.form.validate();
       this.$refs.form.reset();

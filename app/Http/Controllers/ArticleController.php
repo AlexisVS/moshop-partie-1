@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Article;
 use App\Http\Requests\StoreArticleRequest;
 use App\Http\Requests\UpdateArticleRequest;
+use App\Models\Shop;
 
 class ArticleController extends Controller
 {
@@ -44,9 +45,14 @@ class ArticleController extends Controller
      * @param  \App\Models\Article  $article
      * @return \Illuminate\Http\Response
      */
-    public function show(Article $article)
+    public function show($id)
     {
-        //
+        $article = Article::find($id);
+        $data = [
+            'article' => $article,
+            'shop' => Shop::find($article->shop_id),
+        ];
+        return response()->json($data, 200);
     }
 
     /**

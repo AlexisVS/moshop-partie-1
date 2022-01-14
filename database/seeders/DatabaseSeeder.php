@@ -35,7 +35,7 @@ class DatabaseSeeder extends Seeder
                             ->state(function (array $attributes, Shop $shop) {
                                 return ['shop_id' => $shop->id];
                             })
-                            ->count(10),
+                            ->count(20),
                         'articles'
                     )
                     ->state(function (array $attributes, User $user) {
@@ -47,7 +47,7 @@ class DatabaseSeeder extends Seeder
                     ->count(1),
                 'shops'
             )
-            ->count(200)
+            ->count(20)
             ->create();
     }
 }

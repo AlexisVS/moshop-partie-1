@@ -16,7 +16,6 @@ class CreateCommandesTable extends Migration
         Schema::create('commandes', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained();
-            $table->date('date');
             $table->integer('price');
             $table->json('json_arr_articles_id');
             $table->timestamps();

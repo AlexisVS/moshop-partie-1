@@ -45,7 +45,7 @@
               :registerOverlay="registerOverlay"
               @registerSuccess="registerOverlay = false"
             />
-            <Connexion :loginOverlay="loginOverlay" />
+            <Connexion :loginOverlay="loginOverlay" @loginSuccess="loginOverlay = false"/>
             <router-view :key="$route.fullPath"></router-view>
           </v-col>
         </v-row>
@@ -78,7 +78,7 @@ export default {
   },
   mounted () {
     // this.data = window.data;
-    axios.get('/profile').then(res => {
+    axios.get('/app/profile').then(res => {
       if (res.status == 200) {
         this.profile = res.data.data
         this.isConnected = true

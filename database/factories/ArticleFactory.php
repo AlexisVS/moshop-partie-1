@@ -16,7 +16,7 @@ class ArticleFactory extends Factory
         return [
             'description' => $this->faker->text(150),
             'name' => $this->faker->lastName(),
-            'cover_path' => 'default.jpg',
+            'cover_path' => 'default.png',
             'price' => $this->faker->numberBetween(1, 15),
             'quantity' => $this->faker->numberBetween(1, 150),
         ];
