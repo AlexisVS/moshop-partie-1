@@ -11,7 +11,7 @@
                 <span class="font-weight-regular">{{ item.price }}</span>
               </p>
             </v-col>
-            <v-col cols="12" v-if="shopName">
+            <v-col cols="12">
               <p class="font-weight-bold" >
                 Articles
               </p>

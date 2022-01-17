@@ -63,7 +63,7 @@ export default {
       axios
         .post('/login', form)
         .then(res => res.status = 200 && this.$emit('loginSuccess', false))
-        .then(err => console.log(err));
+        .catch(err => console.log(err));
       this.$refs.form.validate();
       this.$refs.form.reset();
     },

@@ -12,7 +12,7 @@
         <v-spacer></v-spacer>
         <v-col cols="12" class="d-flex justify-end align-center">
           <v-switch class="mr-6" hide-details @click="$vuetify.theme.dark = !$vuetify.theme.dark"></v-switch>
-          <div v-if="!isConnected">
+          <div v-if="!isConnected && !profile">
             <v-btn
               elevation="0"
               small
@@ -31,7 +31,12 @@
             >inscription</v-btn>
           </div>
           <div v-else>
-            <Profile @isConnected="isConnected = true" :profile="profile" @openEditProfileOverlay="editProfileOverlay = true"/>
+            <Profile
+              @isConnected="isConnected = true"
+              :profile="profile"
+              @openEditProfileOverlay="editProfileOverlay = true"
+              @logoutSuccess="profile = null; isConnected = false"
+            />
           </div>
         </v-col>
       </v-row>
@@ -45,8 +50,16 @@
               :registerOverlay="registerOverlay"
               @registerSuccess="registerOverlay = false"
             />
-            <Connexion :loginOverlay="loginOverlay" @loginSuccess="loginOverlay = false"/>
-            <EditProfile :editProfileOverlay="editProfileOverlay" @editProfileSuccess="editProfileOverlay = false"/>
+            <Connexion
+              :loginOverlay="loginOverlay"
+              @loginSuccess="loginOverlay = false; loadProfile()"
+            />
+            <EditProfile
+              v-if="profile"
+              :editProfileOverlay="editProfileOverlay"
+              :profile="profile"
+              @editProfileSuccess="editProfileOverlay = false; loadProfile()"
+            />
             <router-view :key="$route.fullPath"></router-view>
           </v-col>
         </v-row>
@@ -79,15 +92,22 @@ export default {
     Connexion,
     Profile,
     EditProfile
-},
+  },
+  methods: {
+    loadProfile () {
+      axios.get('/app/profile').then(res => {
+        if (res.status == 200) {
+          this.profile = res.data.data
+          this.isConnected = true
+        }
+      });
+    },
+  },
   mounted () {
     // this.data = window.data;
-    axios.get('/app/profile').then(res => {
-      if (res.status == 200) {
-        this.profile = res.data.data
-        this.isConnected = true
-      }
-    });
+    if (this.isConnected == false || this.profile == null) {
+      this.loadProfile()
+    }
   }
 }
 </script>

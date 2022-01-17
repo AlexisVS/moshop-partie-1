@@ -43,12 +43,14 @@
       v-if="addArticleOverlay"
       :addArticleOverlay="addArticleOverlay"
       @addArticleSuccess="addArticleOverlay = false"
+      :refreshShop="loadMyShop"
     />
     <EditArticle
       v-if="editArticleOverlay"
       :article="currentArticle"
       :editArticleOverlay="editArticleOverlay"
       @editArticleSuccess="editArticleOverlay = false"
+      :refreshShop="loadMyShop"
     />
   </v-container>
 </template>
@@ -69,18 +71,21 @@ export default {
   methods: {
     deleteItem (articleId) {
       axios.delete(`app/articles/${articleId}`)
-      .then(res => console.log(res))
+        .then(res => {console.log(res); this.loadMyShop()})
+    },
+    loadMyShop () {
+      axios.get("/app/my-shop")
+        .then(res => {
+          this.shop = res.data;
+          this.shopLoaded = true;
+          if (res.data == null) {
+            this.shop = [];
+          }
+        });
     }
   },
   mounted () {
-    axios.get("/app/my-shop")
-      .then(res => {
-        this.shop = res.data;
-        this.shopLoaded = true;
-        if (res.data == null) {
-          this.shop = [];
-        }
-      });
+    this.loadMyShop()
   },
   components: { AddArticle, EditArticle }
 }

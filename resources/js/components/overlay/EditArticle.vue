@@ -79,6 +79,7 @@ export default {
   props: {
     'editArticleOverlay': { type: Boolean },
     'article': { type: Object, required: true },
+    'refreshShop': {type: Function},
   },
   data () {
     return {
@@ -124,6 +125,7 @@ export default {
       axios
         .post(`/app/articles/${this.articleId}`, form)
         .then(res => res.status == 200 && this.$emit('editArticleSuccess', false));
+        this.refreshShop()
       // this.$refs.editArticleForm.validate();
       // this.$refs.editArticleForm.reset();
     },

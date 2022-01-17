@@ -5512,6 +5512,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -5538,16 +5551,23 @@ __webpack_require__.r(__webpack_exports__);
     Profile: _components_Profile_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
     EditProfile: _components_overlay_EditProfile_vue__WEBPACK_IMPORTED_MODULE_5__["default"]
   },
-  mounted: function mounted() {
-    var _this = this;
+  methods: {
+    loadProfile: function loadProfile() {
+      var _this = this;
 
+      axios__WEBPACK_IMPORTED_MODULE_2___default().get('/app/profile').then(function (res) {
+        if (res.status == 200) {
+          _this.profile = res.data.data;
+          _this.isConnected = true;
+        }
+      });
+    }
+  },
+  mounted: function mounted() {
     // this.data = window.data;
-    axios__WEBPACK_IMPORTED_MODULE_2___default().get('/app/profile').then(function (res) {
-      if (res.status == 200) {
-        _this.profile = res.data.data;
-        _this.isConnected = true;
-      }
-    });
+    if (this.isConnected == false || this.profile == null) {
+      this.loadProfile();
+    }
   }
 });
 
@@ -5619,6 +5639,7 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (err) {
         return console.log(err);
       });
+      this.$emit('logoutSuccess', false);
     }
   }
 });
@@ -5770,6 +5791,9 @@ __webpack_require__.r(__webpack_exports__);
   props: {
     'addArticleOverlay': {
       type: Boolean
+    },
+    'refreshShop': {
+      type: Function
     }
   },
   data: function data() {
@@ -5822,6 +5846,7 @@ __webpack_require__.r(__webpack_exports__);
       });
       this.$refs.form.validate();
       this.$refs.form.reset();
+      this.refreshShop();
     },
     handleInputAvatar: function handleInputAvatar(file) {
       this.avatar = file;
@@ -5915,7 +5940,7 @@ __webpack_require__.r(__webpack_exports__);
       form.append('password', this.password);
       axios__WEBPACK_IMPORTED_MODULE_0___default().post('/login', form).then(function (res) {
         return res.status =  true && _this.$emit('loginSuccess', false);
-      }).then(function (err) {
+      })["catch"](function (err) {
         return console.log(err);
       });
       this.$refs.form.validate();
@@ -6023,6 +6048,9 @@ __webpack_require__.r(__webpack_exports__);
     'article': {
       type: Object,
       required: true
+    },
+    'refreshShop': {
+      type: Function
     }
   },
   data: function data() {
@@ -6076,7 +6104,8 @@ __webpack_require__.r(__webpack_exports__);
       form.append('_method', 'PUT');
       axios__WEBPACK_IMPORTED_MODULE_0___default().post("/app/articles/".concat(this.articleId), form).then(function (res) {
         return res.status == 200 && _this.$emit('editArticleSuccess', false);
-      }); // this.$refs.editArticleForm.validate();
+      });
+      this.refreshShop(); // this.$refs.editArticleForm.validate();
       // this.$refs.editArticleForm.reset();
     },
     handleInputAvatar: function handleInputAvatar(file) {
@@ -6154,18 +6183,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: 'Inscription',
+  name: 'EditProfile',
   props: {
     'editProfileOverlay': {
       type: Boolean
+    },
+    'profile': {
+      type: Object,
+      required: true
     }
   },
   data: function data() {
     return {
       valid: true,
-      firstName: '',
-      lastName: '',
-      email: '',
+      firstName: this.profile.profile.first_name,
+      lastName: this.profile.profile.last_name,
+      email: this.profile.user.email,
       avatar: null,
       firstNameRules: [function (v) {
         return !!v || 'First name is required';
@@ -6854,6 +6887,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 
@@ -6870,22 +6905,29 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     deleteItem: function deleteItem(articleId) {
+      var _this = this;
+
       axios__WEBPACK_IMPORTED_MODULE_0___default()["delete"]("app/articles/".concat(articleId)).then(function (res) {
-        return console.log(res);
+        console.log(res);
+
+        _this.loadMyShop();
+      });
+    },
+    loadMyShop: function loadMyShop() {
+      var _this2 = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default().get("/app/my-shop").then(function (res) {
+        _this2.shop = res.data;
+        _this2.shopLoaded = true;
+
+        if (res.data == null) {
+          _this2.shop = [];
+        }
       });
     }
   },
   mounted: function mounted() {
-    var _this = this;
-
-    axios__WEBPACK_IMPORTED_MODULE_0___default().get("/app/my-shop").then(function (res) {
-      _this.shop = res.data;
-      _this.shopLoaded = true;
-
-      if (res.data == null) {
-        _this.shop = [];
-      }
-    });
+    this.loadMyShop();
   },
   components: {
     AddArticle: _components_overlay_AddArticle_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
@@ -26585,7 +26627,7 @@ var render = function () {
                     },
                   }),
                   _vm._v(" "),
-                  !_vm.isConnected
+                  !_vm.isConnected && !_vm.profile
                     ? _c(
                         "div",
                         [
@@ -26641,6 +26683,10 @@ var render = function () {
                               openEditProfileOverlay: function ($event) {
                                 _vm.editProfileOverlay = true
                               },
+                              logoutSuccess: function ($event) {
+                                _vm.profile = null
+                                _vm.isConnected = false
+                              },
                             },
                           }),
                         ],
@@ -26683,18 +26729,25 @@ var render = function () {
                         on: {
                           loginSuccess: function ($event) {
                             _vm.loginOverlay = false
+                            _vm.loadProfile()
                           },
                         },
                       }),
                       _vm._v(" "),
-                      _c("EditProfile", {
-                        attrs: { editProfileOverlay: _vm.editProfileOverlay },
-                        on: {
-                          editProfileSuccess: function ($event) {
-                            _vm.editProfileOverlay = false
-                          },
-                        },
-                      }),
+                      _vm.profile
+                        ? _c("EditProfile", {
+                            attrs: {
+                              editProfileOverlay: _vm.editProfileOverlay,
+                              profile: _vm.profile,
+                            },
+                            on: {
+                              editProfileSuccess: function ($event) {
+                                _vm.editProfileOverlay = false
+                                _vm.loadProfile()
+                              },
+                            },
+                          })
+                        : _vm._e(),
                       _vm._v(" "),
                       _c("router-view", { key: _vm.$route.fullPath }),
                     ],
@@ -27875,13 +27928,11 @@ var render = function () {
                         ]),
                       ]),
                       _vm._v(" "),
-                      _vm.shopName
-                        ? _c("v-col", { attrs: { cols: "12" } }, [
-                            _c("p", { staticClass: "font-weight-bold" }, [
-                              _vm._v("\n              Articles\n            "),
-                            ]),
-                          ])
-                        : _vm._e(),
+                      _c("v-col", { attrs: { cols: "12" } }, [
+                        _c("p", { staticClass: "font-weight-bold" }, [
+                          _vm._v("\n              Articles\n            "),
+                        ]),
+                      ]),
                     ],
                     1
                   ),
@@ -28331,105 +28382,120 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "v-container",
-    [
-      _c(
-        "v-row",
+  return _vm.paniers && _vm.paniers.length > 0
+    ? _c(
+        "v-container",
         [
           _c(
-            "v-col",
-            { attrs: { cols: "" } },
+            "v-row",
             [
-              _c("v-simple-table", {
-                attrs: { "fixed-header": "" },
-                scopedSlots: _vm._u([
-                  {
-                    key: "default",
-                    fn: function () {
-                      return [
-                        _c("thead", [
-                          _c("tr", [
-                            _c("th", { staticClass: "text-left" }, [
-                              _vm._v("Name"),
-                            ]),
-                            _vm._v(" "),
-                            _c("th", { staticClass: "text-left" }, [
-                              _vm._v("Price"),
-                            ]),
-                            _vm._v(" "),
-                            _c("th", { staticClass: "text-left" }, [
-                              _vm._v("Quantity"),
-                            ]),
-                            _vm._v(" "),
-                            _c("th", { staticClass: "text-left" }, [
-                              _vm._v("Total"),
-                            ]),
-                          ]),
-                        ]),
-                        _vm._v(" "),
-                        _c(
-                          "tbody",
-                          _vm._l(_vm.paniers, function (item) {
-                            return _c("tr", { key: "cart-" + item.id }, [
-                              _c("td", [_vm._v(_vm._s(item.article_id.name))]),
-                              _vm._v(" "),
-                              _c("td", [_vm._v(_vm._s(item.article_id.price))]),
-                              _vm._v(" "),
-                              _c("td", [_vm._v(_vm._s(item.quantity))]),
-                              _vm._v(" "),
-                              _c("td", [
-                                _vm._v(
-                                  _vm._s(
-                                    item.article_id.price * item.quantity
-                                  ) + "€"
-                                ),
+              _c(
+                "v-col",
+                { attrs: { cols: "" } },
+                [
+                  _c("v-simple-table", {
+                    attrs: { "fixed-header": "" },
+                    scopedSlots: _vm._u(
+                      [
+                        {
+                          key: "default",
+                          fn: function () {
+                            return [
+                              _c("thead", [
+                                _c("tr", [
+                                  _c("th", { staticClass: "text-left" }, [
+                                    _vm._v("Name"),
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("th", { staticClass: "text-left" }, [
+                                    _vm._v("Price"),
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("th", { staticClass: "text-left" }, [
+                                    _vm._v("Quantity"),
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("th", { staticClass: "text-left" }, [
+                                    _vm._v("Total"),
+                                  ]),
+                                ]),
                               ]),
-                            ])
-                          }),
-                          0
-                        ),
-                      ]
-                    },
-                    proxy: true,
-                  },
-                ]),
-              }),
+                              _vm._v(" "),
+                              _c(
+                                "tbody",
+                                _vm._l(_vm.paniers, function (item) {
+                                  return _c("tr", { key: "cart-" + item.id }, [
+                                    _c("td", [
+                                      _vm._v(_vm._s(item.article_id.name)),
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("td", [
+                                      _vm._v(_vm._s(item.article_id.price)),
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("td", [_vm._v(_vm._s(item.quantity))]),
+                                    _vm._v(" "),
+                                    _c("td", [
+                                      _vm._v(
+                                        _vm._s(
+                                          item.article_id.price * item.quantity
+                                        ) + "€"
+                                      ),
+                                    ]),
+                                  ])
+                                }),
+                                0
+                              ),
+                            ]
+                          },
+                          proxy: true,
+                        },
+                      ],
+                      null,
+                      false,
+                      2976341290
+                    ),
+                  }),
+                ],
+                1
+              ),
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-row",
+            [
+              _c(
+                "v-col",
+                { staticClass: "text-right", attrs: { cols: "12" } },
+                [
+                  _c(
+                    "div",
+                    { staticClass: "d-flex justify-end align-center" },
+                    [
+                      _c("p", { staticClass: "font-weight-bold mb-0 mr-9" }, [
+                        _vm._v("\n          Total cost:\n          "),
+                        _c("span", [_vm._v(_vm._s(_vm.getTotalCost) + "€")]),
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "v-btn",
+                        { attrs: { color: "success" }, on: { click: _vm.buy } },
+                        [_vm._v("Buy")]
+                      ),
+                    ],
+                    1
+                  ),
+                ]
+              ),
             ],
             1
           ),
         ],
         1
-      ),
-      _vm._v(" "),
-      _c(
-        "v-row",
-        [
-          _c("v-col", { staticClass: "text-right", attrs: { cols: "12" } }, [
-            _c(
-              "div",
-              { staticClass: "d-flex justify-end align-center" },
-              [
-                _c("p", { staticClass: "font-weight-bold mb-0 mr-9" }, [
-                  _vm._v("\n          Total cost:\n          "),
-                  _c("span", [_vm._v(_vm._s(_vm.getTotalCost) + "€")]),
-                ]),
-                _vm._v(" "),
-                _c(
-                  "v-btn",
-                  { attrs: { color: "success" }, on: { click: _vm.buy } },
-                  [_vm._v("Buy")]
-                ),
-              ],
-              1
-            ),
-          ]),
-        ],
-        1
-      ),
-    ],
-    1
-  )
+      )
+    : _vm._e()
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -28841,7 +28907,10 @@ var render = function () {
           _vm._v(" "),
           _vm.addArticleOverlay
             ? _c("AddArticle", {
-                attrs: { addArticleOverlay: _vm.addArticleOverlay },
+                attrs: {
+                  addArticleOverlay: _vm.addArticleOverlay,
+                  refreshShop: _vm.loadMyShop,
+                },
                 on: {
                   addArticleSuccess: function ($event) {
                     _vm.addArticleOverlay = false
@@ -28855,6 +28924,7 @@ var render = function () {
                 attrs: {
                   article: _vm.currentArticle,
                   editArticleOverlay: _vm.editArticleOverlay,
+                  refreshShop: _vm.loadMyShop,
                 },
                 on: {
                   editArticleSuccess: function ($event) {

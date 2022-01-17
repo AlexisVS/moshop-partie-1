@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container v-if="paniers && paniers.length > 0">
     <v-row>
       <v-col cols>
         <v-simple-table fixed-header>

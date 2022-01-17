@@ -53,32 +53,35 @@
 <script>
 import axios from 'axios'
 export default {
-  name: 'Inscription',
+  name: 'EditProfile',
   props: {
-    'editProfileOverlay': { type: Boolean }
+    'editProfileOverlay': { type: Boolean },
+    'profile': { type: Object, required: true },
   },
-  data: () => ({
-    valid: true,
-    firstName: '',
-    lastName: '',
-    email: '',
-    avatar: null,
-    firstNameRules: [
-      v => !!v || 'First name is required', // true aussi non ...
-      v => (v && v.length <= 10) || 'First name must be less than 10 characters',
-    ],
-    lastNameRules: [
-      v => !!v || 'Last name is required', // true aussi non ...
-      v => (v && v.length <= 10) || 'Last name must be less than 10 characters',
-    ],
-    emailRules: [
-      v => !!v || 'E-mail is required',
-      v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
-    ],
-    avatarRules: [
-      v => !v || v.size < 2000000 || 'L\'image doit peser moins de 2 MB!',
-    ],
-  }),
+  data () {
+    return {
+      valid: true,
+      firstName: this.profile.profile.first_name,
+      lastName: this.profile.profile.last_name,
+      email: this.profile.user.email,
+      avatar: null,
+      firstNameRules: [
+        v => !!v || 'First name is required', // true aussi non ...
+        v => (v && v.length <= 10) || 'First name must be less than 10 characters',
+      ],
+      lastNameRules: [
+        v => !!v || 'Last name is required', // true aussi non ...
+        v => (v && v.length <= 10) || 'Last name must be less than 10 characters',
+      ],
+      emailRules: [
+        v => !!v || 'E-mail is required',
+        v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
+      ],
+      avatarRules: [
+        v => !v || v.size < 2000000 || 'L\'image doit peser moins de 2 MB!',
+      ],
+    }
+  },
   methods: {
     validate () {
       let form = new FormData(this.$refs.form.$el)

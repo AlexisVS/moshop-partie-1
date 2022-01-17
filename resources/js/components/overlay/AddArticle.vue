@@ -75,7 +75,8 @@ import axios from 'axios'
 export default {
   name: 'addArticleOverlay',
   props: {
-    'addArticleOverlay': { type: Boolean }
+    'addArticleOverlay': { type: Boolean },
+    'refreshShop': {type: Function}
   },
   data: () => ({
     valid: true,
@@ -118,6 +119,7 @@ export default {
         .then(res => res.status == 200 && this.$emit('addArticleSuccess', false));
       this.$refs.form.validate();
       this.$refs.form.reset();
+      this.refreshShop()
     },
     handleInputAvatar (file) {
       this.avatar = file;

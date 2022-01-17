@@ -45,6 +45,7 @@ export default {
       axios.post("/logout")
         .then(res => console.log(res))
         .catch(err => console.log(err));
+        this.$emit('logoutSuccess', false)
     },
   }
 
