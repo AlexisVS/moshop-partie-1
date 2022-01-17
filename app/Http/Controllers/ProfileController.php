@@ -5,82 +5,57 @@ namespace App\Http\Controllers;
 use App\Models\Profile;
 use App\Http\Requests\StoreProfileRequest;
 use App\Http\Requests\UpdateProfileRequest;
+use App\Models\Shop;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
+     * Return the user and their profile informations
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function show()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreProfileRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StoreProfileRequest $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Profile  $profile
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Profile $profile)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Profile  $profile
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Profile $profile)
-    {
-        //
+        return response()->json([
+            'data' => [
+                'user' => Auth::user(),
+                'profile' => User::find(Auth::user()->id)->profiles,
+            ],
+        ], 200);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \App\Http\Requests\UpdateProfileRequest  $request
-     * @param  \App\Models\Profile  $profile
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateProfileRequest $request, Profile $profile)
+    public function edit(UpdateProfileRequest $request)
     {
-        //
-    }
+        $request->validated();
+        $profile = Profile::find(auth()->user()->id);
+        $shop = Shop::where('user_id', Auth::user()->id)->first();
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Profile  $profile
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Profile $profile)
-    {
-        //
+        // dd($request);
+
+        if ($profile->picture_path != 'default.jpg' || $profile->picture_path != 'default.png') {
+            Storage::disk('public')->delete('/images/' . $profile->picture_path);
+        }
+        Storage::disk('public')->put('images', $request->file('picture_path'));
+
+        $shop->name = $request->first_name . ' ' . $request->last_name . ' shop';
+        $shop->save();
+        $user = User::find(Auth::user()->id);
+        $user->email = $request->email;
+        $user->save();
+        $profile->first_name =  $request->first_name;
+        $profile->last_name = $request->last_name;
+        $profile->picture_path = $request->file('picture_path')->hashName();
+        $profile->user_id = auth()->user()->id;
+        $profile->save();
+
+        return response()->json('success', 200);
     }
 }

@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Commande;
 use App\Http\Requests\StoreCommandeRequest;
 use App\Http\Requests\UpdateCommandeRequest;
+use App\Http\Resources\Commande as ResourcesCommande;
+use App\Models\Article;
+use App\Models\Shop;
+use Illuminate\Support\Facades\Auth;
 
 class CommandeController extends Controller
 {
@@ -15,7 +19,12 @@ class CommandeController extends Controller
      */
     public function index()
     {
-        //
+        $commandes = Commande::where('user_id', Auth::user()->id)->get();
+        foreach ($commandes as $commande) {
+            $commande->json_arr_articles_id = Article::find(json_decode($commande->json_arr_articles_id));
+            // $commande->shop_id = Shop::find($commande->shop_id)->name;
+        }
+        return  response()->json($commandes, 200);
     }
 
     /**

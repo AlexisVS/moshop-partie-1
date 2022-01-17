@@ -23,7 +23,7 @@ export default {
         link: '/profile',
       },
       {
-        text: 'Commande',
+        text: 'Commandes',
         link: '/commandes',
       },
       {
@@ -31,13 +31,17 @@ export default {
         link: '/panier',
       },
       {
-        text: 'Shop',
-        link: '/shops',
+        text: 'My shop',
+        link: '/my-shop',
       },
       {
-        text: 'Articles',
-        link: '/articles',
+        text: 'Liste des shops',
+        link: '/shops',
       },
+      // {
+      //   text: 'Articles',
+      //   link: '/articles',
+      // },
     ]
   }),
 }

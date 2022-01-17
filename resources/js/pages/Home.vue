@@ -1,5 +1,4 @@
 <template>
-  <div>
     <v-container v-if="shop">
       <v-row v-if="shop.shop.name">
         <v-col>
@@ -21,7 +20,7 @@
           lg="3"
           xl="2"
         >
-          <v-card :to="'/article/' + item.id">
+          <v-card :to="'/articles/' + item.id">
             <v-img aspect-ratio="1" :src="'http://127.0.0.1:8000/images/' + item.cover_path"></v-img>
             <v-card-title>{{ item.name }}</v-card-title>
             <v-card-text class="text-truncate">{{ item.description }}</v-card-text>
@@ -29,7 +28,6 @@
         </v-col>
       </v-row>
     </v-container>
-  </div>
 </template>
 
 <script>

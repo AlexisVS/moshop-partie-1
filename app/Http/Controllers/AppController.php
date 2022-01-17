@@ -22,19 +22,7 @@ class AppController extends Controller
         return view('app');
     }
 
-    /**
-     * Return the user and their profile
-     * @return \Illuminate\Http\Response
-     */
-    public function profile()
-    {
-        return response()->json([
-            'data' => [
-                'user' => Auth::user(),
-                'profile' => User::find(Auth::user()->id)->profiles,
-            ],
-        ], 200);
-    }
+
 
     /**
      * Return the card of the user

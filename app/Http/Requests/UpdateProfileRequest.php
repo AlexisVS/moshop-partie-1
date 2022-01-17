@@ -13,7 +13,7 @@ class UpdateProfileRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,9 @@ class UpdateProfileRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'first_name' => 'required|string|min:3',
+            'last_name' => 'required|string|min:3',
+            'picture_path' => 'required|image|mimes:png,jpg',
         ];
     }
 }

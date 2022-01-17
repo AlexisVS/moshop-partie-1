@@ -47,7 +47,7 @@ class DatabaseSeeder extends Seeder
                     ->count(1),
                 'shops'
             )
-            ->count(20)
+            ->count(2000)
             ->create();
     }
 }

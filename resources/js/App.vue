@@ -31,7 +31,7 @@
             >inscription</v-btn>
           </div>
           <div v-else>
-            <Profile @isConnected="isConnected = true" :profile="profile" />
+            <Profile @isConnected="isConnected = true" :profile="profile" @openEditProfileOverlay="editProfileOverlay = true"/>
           </div>
         </v-col>
       </v-row>
@@ -46,6 +46,7 @@
               @registerSuccess="registerOverlay = false"
             />
             <Connexion :loginOverlay="loginOverlay" @loginSuccess="loginOverlay = false"/>
+            <EditProfile :editProfileOverlay="editProfileOverlay" @editProfileSuccess="editProfileOverlay = false"/>
             <router-view :key="$route.fullPath"></router-view>
           </v-col>
         </v-row>
@@ -60,6 +61,7 @@ import Inscription from './components/overlay/Inscription.vue';
 import axios from 'axios'
 import Connexion from './components/overlay/Connexion.vue';
 import Profile from './components/Profile.vue';
+import EditProfile from './components/overlay/EditProfile.vue'
 export default {
   name: 'App',
   data: () => ({
@@ -67,6 +69,7 @@ export default {
     data: null,
     loginOverlay: false,
     registerOverlay: false,
+    editProfileOverlay: false,
     isConnected: false,
     profile: null,
   }),
@@ -74,8 +77,9 @@ export default {
     Navigation,
     Inscription,
     Connexion,
-    Profile
-  },
+    Profile,
+    EditProfile
+},
   mounted () {
     // this.data = window.data;
     axios.get('/app/profile').then(res => {

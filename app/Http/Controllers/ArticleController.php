@@ -6,6 +6,7 @@ use App\Models\Article;
 use App\Http\Requests\StoreArticleRequest;
 use App\Http\Requests\UpdateArticleRequest;
 use App\Models\Shop;
+use Illuminate\Support\Facades\Storage;
 
 class ArticleController extends Controller
 {
@@ -26,7 +27,6 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        //
     }
 
     /**
@@ -37,6 +37,23 @@ class ArticleController extends Controller
      */
     public function store(StoreArticleRequest $request)
     {
+        $request->validated();
+        $shopId = Shop::where('user_id', auth()->user()->id)->first()->id;
+
+        Storage::disk('public')->put('images', $request->file('cover_path'));
+
+        Article::create([
+            'name' => $request->name,
+            'description' => $request->description,
+            'cover_path' => $request->file('cover_path')->hashName(),
+            'price' => $request->price,
+            'quantity' => $request->quantity,
+            'shop_id' => $shopId,
+        ]);
+
+        return response()->json([
+            'success' => 'Tu es trop fort',
+        ], 200);
     }
 
     /**
@@ -63,7 +80,15 @@ class ArticleController extends Controller
      */
     public function edit(Article $article)
     {
-        //
+        if (Shop::where('user_id', auth()->user()->id)->first()->id == $article->shop_id) {
+            return response()->json([
+                'data' => $article,
+            ], 200);
+        }
+
+        return response()->json([
+            'error' => 'Y a eu un problème chef',
+        ], 502);
     }
 
     /**
@@ -73,9 +98,25 @@ class ArticleController extends Controller
      * @param  \App\Models\Article  $article
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateArticleRequest $request, Article $article)
+    public function update(UpdateArticleRequest $request, $id)
     {
-        //
+        $article = Article::find($id);
+        $request->validated();
+        if ($article->cover_path != 'default.jpg' || $article->cover_path != 'default.png') {
+            Storage::disk('public')->delete('/images/' . $article->cover_path);
+        }
+        Storage::disk('public')->put('images', $request->file('cover_path'));
+
+        $article->name = $request->name;
+        $article->description = $request->description;
+        $article->cover_path = $request->file('cover_path')->hashName();
+        $article->price = $request->price;
+        $article->quantity = $request->quantity;
+        $article->save();
+
+        return response()->json([
+            'success' => 'Tu es trop fort',
+        ], 200);
     }
 
     /**
@@ -86,6 +127,11 @@ class ArticleController extends Controller
      */
     public function destroy(Article $article)
     {
-        //
+        $article->shop_id = null;
+        $article->save();
+
+        return response()->json([
+            'message' => 'Article successfully removed'
+        ], 200);
     }
 }

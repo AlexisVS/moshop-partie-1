@@ -17,10 +17,14 @@
         >{{ profile.profile.first_name + ' ' + profile.profile.last_name }}</v-btn>
       </template>
       <v-list>
-        <v-list-item @click="logout">
+        <v-list-item @click="logout" dense>
           <v-list-item-content>
-            <v-list-item-title></v-list-item-title>
             <v-list-item-subtitle>Logout</v-list-item-subtitle>
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item @click="$emit('openEditProfileOverlay', false)" dense>
+          <v-list-item-content>
+            <v-list-item-subtitle>Edit profile</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
       </v-list>

@@ -12,7 +12,6 @@
         </v-col>
         <v-col cols="12" sm="6">
           <v-container fluid class="mt-2" :class="$vuetify.breakpoint.xsOnly == true && 'mx-7'">
-            <!-- All other stats except habitat description -->
             <v-row class="mt-0 mb-7">
               <v-col cols="12">
                 <v-row class="my-2">
@@ -44,7 +43,13 @@
             </v-row>
             <v-row>
               <v-card-actions class="mx-0 px-0">
-                <input type="number" min="0" :max="article.quantity" class="input-number" v-model="quantity" />
+                <input
+                  type="number"
+                  min="0"
+                  :max="article.quantity"
+                  class="input-number"
+                  v-model="quantity"
+                />
                 <v-btn :disabled="quantity == 0" @click="addToCard" class="ml-2">add to cart</v-btn>
                 <v-spacer></v-spacer>
               </v-card-actions>
@@ -72,12 +77,12 @@ export default {
       formData.append('shop_id', this.shopArticle.id);
       formData.append('article_id', this.article.id);
       formData.append('quantity', this.quantity);
-      axios.post('/app/add-to-cart', formData).then(res => {this.addToCardResponse = res; console.log(res);})
+      axios.post('/app/add-to-cart', formData).then(res => { this.addToCardResponse = res; console.log(res); })
     }
   },
   mounted () {
     axios
-      .get("/app/article/" + this.$route.params.id)
+      .get("/app/articles/" + this.$route.params.id)
       .then(res => { this.article = res.data.article; this.shopArticle = res.data.shop })
   },
 }
