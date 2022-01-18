@@ -77,7 +77,7 @@ export default {
       formData.append('shop_id', this.shopArticle.id);
       formData.append('article_id', this.article.id);
       formData.append('quantity', this.quantity);
-      axios.post('/app/add-to-cart', formData).then(res => { this.addToCardResponse = res; console.log(res); })
+      axios.post('/app/paniers', formData).then(res => { this.addToCardResponse = res; console.log(res); })
     }
   },
   mounted () {

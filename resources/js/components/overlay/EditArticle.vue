@@ -79,7 +79,7 @@ export default {
   props: {
     'editArticleOverlay': { type: Boolean },
     'article': { type: Object, required: true },
-    'refreshShop': {type: Function},
+    'refreshShop': { type: Function },
   },
   data () {
     return {
@@ -115,19 +115,32 @@ export default {
   },
   methods: {
     validate () {
-      let form = new FormData(this.$refs.editArticleForm.$el)
-      form.append('name', this.name)
-      form.append('description', this.description)
-      form.append('cover_path', this.avatar)
-      form.append('price', parseInt(this.price))
-      form.append('quantity', parseInt(this.quantity))
-      form.append('_method', 'PUT')
-      axios
-        .post(`/app/articles/${this.articleId}`, form)
-        .then(res => res.status == 200 && this.$emit('editArticleSuccess', false));
-        this.refreshShop()
-      // this.$refs.editArticleForm.validate();
-      // this.$refs.editArticleForm.reset();
+      if (this.avatar) {
+        let formImage = new FormData()
+        formImage.append('cover_path', this.avatar)
+        formImage.append('_method', 'PUT')
+        axios.post(`/app/articles/${this.articleId}/update-image`, formImage)
+      }
+
+      if (
+        this.name == this.article.name
+        || this.description == this.article.description
+        || this.price == this.article.price
+        || this.quantity == this.article.quantity
+      ) {
+        let form = new FormData(this.$refs.editArticleForm.$el)
+        form.append('name', this.name)
+        form.append('description', this.description)
+        form.append('price', parseInt(this.price))
+        form.append('quantity', parseInt(this.quantity))
+        form.append('_method', 'PUT')
+        axios
+          .post(`/app/articles/${this.articleId}`, form)
+      }
+      this.$refs.editArticleForm.validate();
+      this.$refs.editArticleForm.reset();
+      this.refreshShop()
+      this.$emit('editArticleSuccess', false)
     },
     handleInputAvatar (file) {
       this.avatar = file;

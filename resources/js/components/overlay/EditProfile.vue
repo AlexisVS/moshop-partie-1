@@ -84,19 +84,29 @@ export default {
   },
   methods: {
     validate () {
-      let form = new FormData(this.$refs.form.$el)
-      form.append('first_name', this.firstName)
-      form.append('last_name', this.lastName)
-      form.append('email', this.email)
-      form.append('picture_path', this.avatar)
-      axios
-        .post('/app/edit-profile', form)
-        .then(res => {
-          res.status == 200 && this.$emit('editProfileSuccess', false);
-          this.$refs.form.validate();
-          this.$refs.form.reset();
-        })
-        .catch(err => console.log(err));
+      /* ------------------------------- Just avatar ------------------------------ */
+      if (this.avatar) {
+        let formImage = new FormData()
+        formImage.append('picture_path', this.avatar)
+        formImage.append('_method', 'PUT');
+        axios.post('/app/update-img-profile', formImage)
+      }
+      /* ------------------------------- Other field ------------------------------ */
+      if (this.firstName != this.profile.profile.first_name
+        || this.lastName != this.profile.profile.last_name
+        || this.email != this.profile.user.email) {
+
+        let form = new FormData(this.$refs.form.$el)
+        form.append('first_name', this.firstName)
+        form.append('last_name', this.lastName)
+        form.append('email', this.email)
+        axios
+          .post('/app/edit-profile', form)
+      }
+      this.$refs.form.validate();
+      this.$refs.form.reset();
+      this.$emit('editProfileSuccess', false);
+
     },
     handleInputAvatar (file) {
       this.avatar = file;

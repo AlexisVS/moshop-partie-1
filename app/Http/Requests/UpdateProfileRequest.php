@@ -26,7 +26,6 @@ class UpdateProfileRequest extends FormRequest
         return [
             'first_name' => 'required|string|min:3',
             'last_name' => 'required|string|min:3',
-            'picture_path' => 'required|image|mimes:png,jpg',
         ];
     }
 }

@@ -13,7 +13,7 @@ class StorePanierRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,7 @@ class StorePanierRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'quantity' => 'required|integer|min:0'
         ];
     }
 }

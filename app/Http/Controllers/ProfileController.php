@@ -7,6 +7,7 @@ use App\Http\Requests\StoreProfileRequest;
 use App\Http\Requests\UpdateProfileRequest;
 use App\Models\Shop;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
@@ -32,7 +33,7 @@ class ProfileController extends Controller
      * @param  \App\Http\Requests\UpdateProfileRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function edit(UpdateProfileRequest $request)
+    public function update(UpdateProfileRequest $request)
     {
         $request->validated();
         $profile = Profile::find(auth()->user()->id);
@@ -40,10 +41,10 @@ class ProfileController extends Controller
 
         // dd($request);
 
-        if ($profile->picture_path != 'default.jpg' || $profile->picture_path != 'default.png') {
-            Storage::disk('public')->delete('/images/' . $profile->picture_path);
-        }
-        Storage::disk('public')->put('images', $request->file('picture_path'));
+        // if ($profile->picture_path != 'default.jpg' || $profile->picture_path != 'default.png') {
+        //     Storage::disk('public')->delete('/images/' . $profile->picture_path);
+        // }
+        // Storage::disk('public')->put('images', $request->file('picture_path'));
 
         $shop->name = $request->first_name . ' ' . $request->last_name . ' shop';
         $shop->save();
@@ -52,8 +53,31 @@ class ProfileController extends Controller
         $user->save();
         $profile->first_name =  $request->first_name;
         $profile->last_name = $request->last_name;
-        $profile->picture_path = $request->file('picture_path')->hashName();
+        // $profile->picture_path = $request->file('picture_path')->hashName();
         $profile->user_id = auth()->user()->id;
+        $profile->save();
+
+        return response()->json('success', 200);
+    }
+
+    /**
+     * Update the profile image
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function updateImageProfile(Request $request)
+    {
+        $request->validate([
+            'picture_path' => 'required|image|mimes:png,jpg|max:2048',
+        ]);
+        
+        $profile = auth()->user()->profiles;
+
+        if ($profile->picture_path != 'default.jpg' || $profile->picture_path != 'default.png') {
+            Storage::disk('public')->delete('/images/' . $profile->picture_path);
+        }
+        Storage::disk('public')->put('images', $request->file('picture_path'));
+        $profile->picture_path = $request->file('picture_path')->hashName();
         $profile->save();
 
         return response()->json('success', 200);

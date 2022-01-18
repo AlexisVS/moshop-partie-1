@@ -6,6 +6,7 @@ use App\Models\Article;
 use App\Http\Requests\StoreArticleRequest;
 use App\Http\Requests\UpdateArticleRequest;
 use App\Models\Shop;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class ArticleController extends Controller
@@ -102,14 +103,14 @@ class ArticleController extends Controller
     {
         $article = Article::find($id);
         $request->validated();
-        if ($article->cover_path != 'default.jpg' || $article->cover_path != 'default.png') {
-            Storage::disk('public')->delete('/images/' . $article->cover_path);
-        }
-        Storage::disk('public')->put('images', $request->file('cover_path'));
+        // if ($article->cover_path != 'default.jpg' || $article->cover_path != 'default.png') {
+        //     Storage::disk('public')->delete('/images/' . $article->cover_path);
+        // }
+        // Storage::disk('public')->put('images', $request->file('cover_path'));
 
         $article->name = $request->name;
         $article->description = $request->description;
-        $article->cover_path = $request->file('cover_path')->hashName();
+        // $article->cover_path = $request->file('cover_path')->hashName();
         $article->price = $request->price;
         $article->quantity = $request->quantity;
         $article->save();
@@ -117,6 +118,27 @@ class ArticleController extends Controller
         return response()->json([
             'success' => 'Tu es trop fort',
         ], 200);
+    }
+
+    /**
+     * Update image of article
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function updateImageArticle(Request $request, $articleId)
+    {
+        $article = Article::find($articleId);
+
+        if ($article->cover_path != 'default.jpg' || $article->cover_path != 'default.png') {
+            Storage::disk('public')->delete('/images/' . $article->cover_path);
+        }
+
+        Storage::disk('public')->put('images', $request->file('cover_path'));
+
+        $article->cover_path = $request->file('cover_path')->hashName();
+        $article->save();
+
+        return response()->json('success', 200);
     }
 
     /**

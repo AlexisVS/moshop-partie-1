@@ -48,7 +48,7 @@
           <v-col cols="12">
             <Inscription
               :registerOverlay="registerOverlay"
-              @registerSuccess="registerOverlay = false"
+              @registerSuccess="registerOverlay = false; loadProfile(); $router.push('/')"
             />
             <Connexion
               :loginOverlay="loginOverlay"
@@ -60,7 +60,10 @@
               :profile="profile"
               @editProfileSuccess="editProfileOverlay = false; loadProfile()"
             />
-            <router-view :key="$route.fullPath"></router-view>
+            <router-view
+              :key="$route.fullPath"
+              v-if="isConnected == true || $route.fullPath == '/'"
+            ></router-view>
           </v-col>
         </v-row>
       </v-container>

@@ -10,6 +10,8 @@ const routes = [
   {
     path: '/',
     component: Home,
+    props: true,
+    
   },
   {
     path: '/shops',

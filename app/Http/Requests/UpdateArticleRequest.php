@@ -26,7 +26,6 @@ class UpdateArticleRequest extends FormRequest
         return [
             'name' => 'required|string',
             'description' => 'required|string',
-            'cover_path' => 'required|image|mimes:png,jpg|max:2048',
             'price' => 'required|integer|min:1',
             'quantity' => 'required|integer|min:1',
         ];

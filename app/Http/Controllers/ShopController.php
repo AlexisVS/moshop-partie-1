@@ -15,6 +15,9 @@ class ShopController extends Controller
      */
     public function index()
     {
+        // $test = Shop::first();
+        // $test->hello = 'world';
+        // dd($test);
         return response()->json([
             'data' => Shop::all(),
         ],200);
