@@ -5528,6 +5528,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 
@@ -5788,6 +5791,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'addArticleOverlay',
@@ -5908,6 +5921,24 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'Connexion',
@@ -5967,6 +5998,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -6191,6 +6235,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'EditProfile',
@@ -6252,8 +6312,8 @@ __webpack_require__.r(__webpack_exports__);
         axios__WEBPACK_IMPORTED_MODULE_0___default().post('/app/edit-profile', form);
       }
 
-      this.$refs.form.validate();
-      this.$refs.form.reset();
+      this.$refs.form.validate(); // this.$refs.form.reset();
+
       this.$emit('editProfileSuccess', false);
     },
     handleInputAvatar: function handleInputAvatar(file) {
@@ -6277,6 +6337,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -6951,6 +7027,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 
@@ -7395,7 +7473,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.input-number[data-v-303eafdf] {\r\n  border-color: #bbb;\r\n  border-bottom: 1.5px solid #bbb;\r\n  color: #bbb;\r\n  outline: none;\r\n  padding: 4px 9px;\r\n  font-weight: 600;\r\n  width: 100%;\r\n  transition: all ease-out 450ms;\n}\n.input-number[data-v-303eafdf]:hover{\r\n  border-color: #eee;\r\n  border-bottom: 1.5px solid #eee;\r\n  color: #eee;\r\n  transition: all ease-out 450ms;\n}\n.input-number[data-v-303eafdf]:focus{\r\n  border-color: #1976d2;\r\n  border-bottom: 1.5px solid #1976d2;\r\n  color: #1976d2;\r\n  \r\n  transition: all ease-out 450ms;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.input-number[data-v-303eafdf] {\r\n  border-color: #bbb;\r\n  border-bottom: 1.5px solid #bbb;\r\n  color: #bbb;\r\n  outline: none;\r\n  padding: 4px 9px;\r\n  font-weight: 600;\r\n  width: 100%;\r\n  transition: all ease-out 450ms;\n}\n.input-number[data-v-303eafdf]:hover {\r\n  border-color: #eee;\r\n  border-bottom: 1.5px solid #eee;\r\n  color: #eee;\r\n  transition: all ease-out 450ms;\n}\n.input-number[data-v-303eafdf]:focus {\r\n  border-color: #1976d2;\r\n  border-bottom: 1.5px solid #1976d2;\r\n  color: #1976d2;\r\n\r\n  transition: all ease-out 450ms;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -26855,6 +26933,9 @@ var render = function () {
                             _vm.loadProfile()
                             _vm.$router.push("/")
                           },
+                          closeOverlayInscription: function ($event) {
+                            _vm.registerOverlay = false
+                          },
                         },
                       }),
                       _vm._v(" "),
@@ -26864,6 +26945,9 @@ var render = function () {
                           loginSuccess: function ($event) {
                             _vm.loginOverlay = false
                             _vm.loadProfile()
+                          },
+                          closeOverlayConnexion: function ($event) {
+                            _vm.loginOverlay = false
                           },
                         },
                       }),
@@ -26878,6 +26962,9 @@ var render = function () {
                               editProfileSuccess: function ($event) {
                                 _vm.editProfileOverlay = false
                                 _vm.loadProfile()
+                              },
+                              closeOverlayEditProfile: function ($event) {
+                                _vm.editProfileOverlay = false
                               },
                             },
                           })
@@ -27100,174 +27187,213 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "v-overlay",
-    { attrs: { value: _vm.addArticleOverlay } },
+    "v-dialog",
+    {
+      attrs: {
+        transition: false,
+        color: "transparent",
+        elevation: 0,
+        width: "max-content",
+      },
+      on: {
+        "click:outside": function ($event) {
+          return _vm.$emit("closeOverlayAddArticle", false)
+        },
+        keydown: function ($event) {
+          if (
+            !$event.type.indexOf("key") &&
+            _vm._k($event.keyCode, "esc", 27, $event.key, ["Esc", "Escape"])
+          ) {
+            return null
+          }
+          return _vm.$emit("closeOverlayAddArticle", false)
+        },
+      },
+      model: {
+        value: _vm.addArticleOverlay,
+        callback: function ($$v) {
+          _vm.addArticleOverlay = $$v
+        },
+        expression: "addArticleOverlay",
+      },
+    },
     [
       _c(
-        "v-container",
+        "v-card",
         {
-          staticClass: "relative pa-0",
-          attrs: { fluid: _vm.$vuetify.breakpoint.xs },
+          staticClass: "mx-auto",
+          attrs: { width: "max-content", elevation: 0 },
         },
         [
           _c(
-            "v-row",
+            "v-card-text",
             [
-              _c("v-spacer"),
-              _vm._v(" "),
               _c(
-                "v-col",
-                { staticClass: "pa-0", attrs: { cols: "12" } },
+                "v-container",
                 [
                   _c(
-                    "v-form",
-                    {
-                      ref: "form",
-                      staticClass: "px-3 py-2",
-                      style: _vm.$vuetify.breakpoint.xsOnly
-                        ? "width: 100%"
-                        : "width:600px",
-                      attrs: {
-                        enctype: "multipart/form-data",
-                        "lazy-validation": "",
-                      },
-                      on: {
-                        submit: function ($event) {
-                          $event.preventDefault()
-                          return _vm.validate.apply(null, arguments)
-                        },
-                      },
-                      model: {
-                        value: _vm.valid,
-                        callback: function ($$v) {
-                          _vm.valid = $$v
-                        },
-                        expression: "valid",
-                      },
-                    },
+                    "v-row",
                     [
-                      _c("v-text-field", {
-                        attrs: {
-                          counter: 30,
-                          rules: _vm.nameRules,
-                          name: "name",
-                          label: "Article name",
-                          required: "",
-                        },
-                        model: {
-                          value: _vm.name,
-                          callback: function ($$v) {
-                            _vm.name = $$v
-                          },
-                          expression: "name",
-                        },
-                      }),
-                      _vm._v(" "),
-                      _c("v-text-field", {
-                        attrs: {
-                          counter: 200,
-                          rules: _vm.descriptionRules,
-                          name: "description",
-                          label: "Description",
-                          required: "",
-                        },
-                        model: {
-                          value: _vm.description,
-                          callback: function ($$v) {
-                            _vm.description = $$v
-                          },
-                          expression: "description",
-                        },
-                      }),
-                      _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.price,
-                            expression: "price",
-                          },
-                        ],
-                        staticClass: "input-number",
-                        attrs: {
-                          min: "1",
-                          name: "price",
-                          label: "Price",
-                          "hide-details": "",
-                          "single-line": "",
-                          type: "number",
-                        },
-                        domProps: { value: _vm.price },
-                        on: {
-                          input: function ($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.price = $event.target.value
-                          },
-                        },
-                      }),
-                      _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.quantity,
-                            expression: "quantity",
-                          },
-                        ],
-                        staticClass: "mt-5 input-number",
-                        attrs: {
-                          min: "1",
-                          name: "quantity",
-                          label: "Quantity",
-                          "hide-details": "",
-                          "single-line": "",
-                          type: "number",
-                        },
-                        domProps: { value: _vm.quantity },
-                        on: {
-                          input: function ($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.quantity = $event.target.value
-                          },
-                        },
-                      }),
-                      _vm._v(" "),
-                      _c("v-file-input", {
-                        ref: "inputAvatar",
-                        staticClass: "mt-5 ",
-                        attrs: {
-                          value: _vm.avatar,
-                          rules: _vm.avatarRules,
-                          name: "avatar",
-                          accept: "image/png, image/jpeg, image/bmp",
-                          placeholder: "Selectionner une image de produit",
-                          "prepend-icon": "mdi-camera",
-                          label: "Avatar",
-                        },
-                        on: {
-                          change: function ($event) {
-                            return _vm.handleInputAvatar($event)
-                          },
-                        },
-                      }),
-                      _vm._v(" "),
                       _c(
-                        "v-btn",
-                        {
-                          staticClass: "mr-4 mt-4",
-                          attrs: {
-                            disabled: !_vm.valid,
-                            color: "success",
-                            type: "submit",
-                          },
-                        },
-                        [_vm._v("Validate")]
+                        "v-col",
+                        { staticClass: "pa-0", attrs: { cols: "12" } },
+                        [
+                          _c(
+                            "v-form",
+                            {
+                              ref: "form",
+                              staticClass: "px-9 py-9 py-2 rounded-lg",
+                              style: _vm.$vuetify.breakpoint.xsOnly
+                                ? "width: 100%"
+                                : "width:600px",
+                              attrs: {
+                                enctype: "multipart/form-data",
+                                "lazy-validation": "",
+                              },
+                              on: {
+                                submit: function ($event) {
+                                  $event.preventDefault()
+                                  return _vm.validate.apply(null, arguments)
+                                },
+                              },
+                              model: {
+                                value: _vm.valid,
+                                callback: function ($$v) {
+                                  _vm.valid = $$v
+                                },
+                                expression: "valid",
+                              },
+                            },
+                            [
+                              _c("v-text-field", {
+                                attrs: {
+                                  counter: 30,
+                                  rules: _vm.nameRules,
+                                  name: "name",
+                                  label: "Article name",
+                                  required: "",
+                                },
+                                model: {
+                                  value: _vm.name,
+                                  callback: function ($$v) {
+                                    _vm.name = $$v
+                                  },
+                                  expression: "name",
+                                },
+                              }),
+                              _vm._v(" "),
+                              _c("v-text-field", {
+                                attrs: {
+                                  counter: 200,
+                                  rules: _vm.descriptionRules,
+                                  name: "description",
+                                  label: "Description",
+                                  required: "",
+                                },
+                                model: {
+                                  value: _vm.description,
+                                  callback: function ($$v) {
+                                    _vm.description = $$v
+                                  },
+                                  expression: "description",
+                                },
+                              }),
+                              _vm._v(" "),
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.price,
+                                    expression: "price",
+                                  },
+                                ],
+                                staticClass: "input-number",
+                                attrs: {
+                                  min: "1",
+                                  name: "price",
+                                  label: "Price",
+                                  "hide-details": "",
+                                  "single-line": "",
+                                  type: "number",
+                                },
+                                domProps: { value: _vm.price },
+                                on: {
+                                  input: function ($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.price = $event.target.value
+                                  },
+                                },
+                              }),
+                              _vm._v(" "),
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.quantity,
+                                    expression: "quantity",
+                                  },
+                                ],
+                                staticClass: "mt-5 input-number",
+                                attrs: {
+                                  min: "1",
+                                  name: "quantity",
+                                  label: "Quantity",
+                                  "hide-details": "",
+                                  "single-line": "",
+                                  type: "number",
+                                },
+                                domProps: { value: _vm.quantity },
+                                on: {
+                                  input: function ($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.quantity = $event.target.value
+                                  },
+                                },
+                              }),
+                              _vm._v(" "),
+                              _c("v-file-input", {
+                                ref: "inputAvatar",
+                                staticClass: "mt-5",
+                                attrs: {
+                                  value: _vm.avatar,
+                                  rules: _vm.avatarRules,
+                                  name: "avatar",
+                                  accept: "image/png, image/jpeg, image/bmp",
+                                  placeholder:
+                                    "Selectionner une image de produit",
+                                  "prepend-icon": "mdi-camera",
+                                  label: "Avatar",
+                                },
+                                on: {
+                                  change: function ($event) {
+                                    return _vm.handleInputAvatar($event)
+                                  },
+                                },
+                              }),
+                              _vm._v(" "),
+                              _c(
+                                "v-btn",
+                                {
+                                  staticClass: "mr-4 mt-4",
+                                  attrs: {
+                                    disabled: !_vm.valid,
+                                    color: "success",
+                                    type: "submit",
+                                  },
+                                },
+                                [_vm._v("Validate")]
+                              ),
+                            ],
+                            1
+                          ),
+                        ],
+                        1
                       ),
                     ],
                     1
@@ -27275,8 +27401,6 @@ var render = function () {
                 ],
                 1
               ),
-              _vm._v(" "),
-              _c("v-spacer"),
             ],
             1
           ),
@@ -27311,117 +27435,157 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "v-overlay",
-    { attrs: { value: _vm.loginOverlay } },
+    "v-dialog",
+    {
+      attrs: {
+        transition: false,
+        color: "transparent",
+        elevation: 0,
+        width: "max-content",
+      },
+      on: {
+        "click:outside": function ($event) {
+          return _vm.$emit("closeOverlayConnexion", false)
+        },
+        keydown: function ($event) {
+          if (
+            !$event.type.indexOf("key") &&
+            _vm._k($event.keyCode, "esc", 27, $event.key, ["Esc", "Escape"])
+          ) {
+            return null
+          }
+          return _vm.$emit("closeOverlayConnexion", false)
+        },
+      },
+      model: {
+        value: _vm.loginOverlay,
+        callback: function ($$v) {
+          _vm.loginOverlay = $$v
+        },
+        expression: "loginOverlay",
+      },
+    },
     [
       _c(
-        "v-container",
+        "v-card",
         {
-          staticClass: "relative pa-0",
-          attrs: { fluid: _vm.$vuetify.breakpoint.xs },
+          staticClass: "mx-auto",
+          attrs: { width: "max-content", elevation: 0 },
         },
         [
           _c(
-            "v-row",
+            "v-card-text",
             [
-              _c("v-spacer"),
-              _vm._v(" "),
               _c(
-                "v-col",
-                { staticClass: "pa-0", attrs: { cols: "12" } },
+                "v-container",
                 [
                   _c(
-                    "v-form",
-                    {
-                      ref: "form",
-                      staticClass: "px-3 py-2",
-                      style: _vm.$vuetify.breakpoint.xsOnly
-                        ? "width: 100%"
-                        : "width:600px",
-                      attrs: {
-                        enctype: "multipart/form-data",
-                        "lazy-validation": "",
-                      },
-                      on: {
-                        submit: function ($event) {
-                          $event.preventDefault()
-                          return _vm.validate.apply(null, arguments)
-                        },
-                      },
-                      model: {
-                        value: _vm.valid,
-                        callback: function ($$v) {
-                          _vm.valid = $$v
-                        },
-                        expression: "valid",
-                      },
-                    },
+                    "v-row",
                     [
-                      _c("v-text-field", {
-                        attrs: {
-                          rules: _vm.emailRules,
-                          label: "E-mail",
-                          name: "email",
-                          required: "",
-                        },
-                        model: {
-                          value: _vm.email,
-                          callback: function ($$v) {
-                            _vm.email = $$v
-                          },
-                          expression: "email",
-                        },
-                      }),
-                      _vm._v(" "),
-                      _c("v-text-field", {
-                        attrs: {
-                          "append-icon": _vm.passwordDisplayEyeIcon
-                            ? "mdi-eye"
-                            : "mdi-eye-off",
-                          rules: _vm.passwordRules,
-                          type: _vm.passwordDisplayEyeIcon
-                            ? "text"
-                            : "password",
-                          name: "password",
-                          label: "Password",
-                          hint: "At least 8 characters and upper case character(s)",
-                          counter: "",
-                        },
-                        on: {
-                          "click:append": function ($event) {
-                            _vm.passwordDisplayEyeIcon =
-                              !_vm.passwordDisplayEyeIcon
-                          },
-                        },
-                        model: {
-                          value: _vm.password,
-                          callback: function ($$v) {
-                            _vm.password = $$v
-                          },
-                          expression: "password",
-                        },
-                      }),
+                      _c("v-spacer"),
                       _vm._v(" "),
                       _c(
-                        "v-btn",
-                        {
-                          staticClass: "mr-4 mt-4",
-                          attrs: {
-                            disabled: !_vm.valid,
-                            color: "success",
-                            type: "submit",
-                          },
-                        },
-                        [_vm._v("Validate")]
+                        "v-col",
+                        { staticClass: "pa-0", attrs: { cols: "12" } },
+                        [
+                          _c(
+                            "v-form",
+                            {
+                              ref: "form",
+                              staticClass: "px-9 py-9 py-2 rounded-lg",
+                              style: _vm.$vuetify.breakpoint.xsOnly
+                                ? "width: 100%"
+                                : "width:600px",
+                              attrs: {
+                                enctype: "multipart/form-data",
+                                "lazy-validation": "",
+                              },
+                              on: {
+                                submit: function ($event) {
+                                  $event.preventDefault()
+                                  return _vm.validate.apply(null, arguments)
+                                },
+                              },
+                              model: {
+                                value: _vm.valid,
+                                callback: function ($$v) {
+                                  _vm.valid = $$v
+                                },
+                                expression: "valid",
+                              },
+                            },
+                            [
+                              _c("v-text-field", {
+                                attrs: {
+                                  rules: _vm.emailRules,
+                                  label: "E-mail",
+                                  name: "email",
+                                  required: "",
+                                },
+                                model: {
+                                  value: _vm.email,
+                                  callback: function ($$v) {
+                                    _vm.email = $$v
+                                  },
+                                  expression: "email",
+                                },
+                              }),
+                              _vm._v(" "),
+                              _c("v-text-field", {
+                                attrs: {
+                                  "append-icon": _vm.passwordDisplayEyeIcon
+                                    ? "mdi-eye"
+                                    : "mdi-eye-off",
+                                  rules: _vm.passwordRules,
+                                  type: _vm.passwordDisplayEyeIcon
+                                    ? "text"
+                                    : "password",
+                                  name: "password",
+                                  label: "Password",
+                                  hint: "At least 8 characters and upper case character(s)",
+                                  counter: "",
+                                },
+                                on: {
+                                  "click:append": function ($event) {
+                                    _vm.passwordDisplayEyeIcon =
+                                      !_vm.passwordDisplayEyeIcon
+                                  },
+                                },
+                                model: {
+                                  value: _vm.password,
+                                  callback: function ($$v) {
+                                    _vm.password = $$v
+                                  },
+                                  expression: "password",
+                                },
+                              }),
+                              _vm._v(" "),
+                              _c(
+                                "v-btn",
+                                {
+                                  staticClass: "mr-4 mt-4",
+                                  attrs: {
+                                    disabled: !_vm.valid,
+                                    color: "success",
+                                    type: "submit",
+                                  },
+                                },
+                                [_vm._v("Validate")]
+                              ),
+                            ],
+                            1
+                          ),
+                        ],
+                        1
                       ),
+                      _vm._v(" "),
+                      _c("v-spacer"),
                     ],
                     1
                   ),
                 ],
                 1
               ),
-              _vm._v(" "),
-              _c("v-spacer"),
             ],
             1
           ),
@@ -27457,185 +27621,227 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _vm.articleId
     ? _c(
-        "v-overlay",
-        { attrs: { value: _vm.editArticleOverlay } },
+        "v-dialog",
+        {
+          attrs: {
+            transition: false,
+            color: "transparent",
+            elevation: 0,
+            width: "max-content",
+          },
+          on: {
+            "click:outside": function ($event) {
+              return _vm.$emit("closeOverlayEditArticle", false)
+            },
+            keydown: function ($event) {
+              if (
+                !$event.type.indexOf("key") &&
+                _vm._k($event.keyCode, "esc", 27, $event.key, ["Esc", "Escape"])
+              ) {
+                return null
+              }
+              return _vm.$emit("closeOverlayEditArticle", false)
+            },
+          },
+          model: {
+            value: _vm.editArticleOverlay,
+            callback: function ($$v) {
+              _vm.editArticleOverlay = $$v
+            },
+            expression: "editArticleOverlay",
+          },
+        },
         [
           _c(
-            "v-container",
+            "v-card",
             {
-              staticClass: "relative pa-0",
-              attrs: { fluid: _vm.$vuetify.breakpoint.xs },
+              staticClass: "mx-auto",
+              attrs: { width: "max-content", elevation: 0 },
             },
             [
               _c(
-                "v-row",
+                "v-card-text",
                 [
-                  _c("v-spacer"),
-                  _vm._v(" "),
                   _c(
-                    "v-col",
-                    { staticClass: "pa-0", attrs: { cols: "12" } },
+                    "v-container",
                     [
                       _c(
-                        "v-form",
-                        {
-                          ref: "editArticleForm",
-                          staticClass: "px-3 py-2",
-                          style: _vm.$vuetify.breakpoint.xsOnly
-                            ? "width: 100%"
-                            : "width:600px",
-                          attrs: {
-                            enctype: "multipart/form-data",
-                            "lazy-validation": "",
-                          },
-                          on: {
-                            submit: function ($event) {
-                              $event.preventDefault()
-                              return _vm.validate.apply(null, arguments)
-                            },
-                          },
-                          model: {
-                            value: _vm.valid,
-                            callback: function ($$v) {
-                              _vm.valid = $$v
-                            },
-                            expression: "valid",
-                          },
-                        },
+                        "v-row",
                         [
-                          _c("v-text-field", {
-                            attrs: {
-                              counter: 30,
-                              rules: _vm.nameRules,
-                              name: "name",
-                              label: "Article name",
-                              required: "",
-                            },
-                            model: {
-                              value: _vm.name,
-                              callback: function ($$v) {
-                                _vm.name = $$v
-                              },
-                              expression: "name",
-                            },
-                          }),
-                          _vm._v(" "),
-                          _c("v-text-field", {
-                            attrs: {
-                              counter: 200,
-                              rules: _vm.descriptionRules,
-                              name: "description",
-                              label: "Description",
-                              required: "",
-                            },
-                            model: {
-                              value: _vm.description,
-                              callback: function ($$v) {
-                                _vm.description = $$v
-                              },
-                              expression: "description",
-                            },
-                          }),
-                          _vm._v(" "),
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.price,
-                                expression: "price",
-                              },
-                            ],
-                            staticClass: "input-number",
-                            attrs: {
-                              min: "1",
-                              rules: _vm.priceRules,
-                              name: "price",
-                              label: "Price",
-                              "hide-details": "",
-                              "single-line": "",
-                              type: "number",
-                            },
-                            domProps: { value: _vm.price },
-                            on: {
-                              input: function ($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.price = $event.target.value
-                              },
-                            },
-                          }),
-                          _vm._v(" "),
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.quantity,
-                                expression: "quantity",
-                              },
-                            ],
-                            staticClass: "mt-5 input-number",
-                            attrs: {
-                              min: "1",
-                              rules: _vm.quantityRules,
-                              name: "quantity",
-                              label: "Quantity",
-                              "hide-details": "",
-                              "single-line": "",
-                              type: "number",
-                            },
-                            domProps: { value: _vm.quantity },
-                            on: {
-                              input: function ($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.quantity = $event.target.value
-                              },
-                            },
-                          }),
-                          _vm._v(" "),
-                          _c("v-file-input", {
-                            ref: "inputAvatar",
-                            staticClass: "mt-5",
-                            attrs: {
-                              value: _vm.avatar,
-                              rules: _vm.avatarRules,
-                              name: "avatar",
-                              accept: "image/png, image/jpeg, image/bmp",
-                              placeholder: "Selectionner une image de produit",
-                              "prepend-icon": "mdi-camera",
-                              label: "Avatar",
-                            },
-                            on: {
-                              change: function ($event) {
-                                return _vm.handleInputAvatar($event)
-                              },
-                            },
-                          }),
+                          _c("v-spacer"),
                           _vm._v(" "),
                           _c(
-                            "v-btn",
-                            {
-                              staticClass: "mr-4 mt-4",
-                              attrs: {
-                                disabled: !_vm.valid,
-                                color: "success",
-                                type: "submit",
-                              },
-                            },
-                            [_vm._v("Validate")]
+                            "v-col",
+                            { staticClass: "pa-0", attrs: { cols: "12" } },
+                            [
+                              _c(
+                                "v-form",
+                                {
+                                  ref: "editArticleForm",
+                                  staticClass: "px-9 py-9 py-2 rounded-lg",
+                                  style: _vm.$vuetify.breakpoint.xsOnly
+                                    ? "width: 100%"
+                                    : "width:600px",
+                                  attrs: {
+                                    enctype: "multipart/form-data",
+                                    "lazy-validation": "",
+                                  },
+                                  on: {
+                                    submit: function ($event) {
+                                      $event.preventDefault()
+                                      return _vm.validate.apply(null, arguments)
+                                    },
+                                  },
+                                  model: {
+                                    value: _vm.valid,
+                                    callback: function ($$v) {
+                                      _vm.valid = $$v
+                                    },
+                                    expression: "valid",
+                                  },
+                                },
+                                [
+                                  _c("v-text-field", {
+                                    attrs: {
+                                      counter: 30,
+                                      rules: _vm.nameRules,
+                                      name: "name",
+                                      label: "Article name",
+                                      required: "",
+                                    },
+                                    model: {
+                                      value: _vm.name,
+                                      callback: function ($$v) {
+                                        _vm.name = $$v
+                                      },
+                                      expression: "name",
+                                    },
+                                  }),
+                                  _vm._v(" "),
+                                  _c("v-text-field", {
+                                    attrs: {
+                                      counter: 200,
+                                      rules: _vm.descriptionRules,
+                                      name: "description",
+                                      label: "Description",
+                                      required: "",
+                                    },
+                                    model: {
+                                      value: _vm.description,
+                                      callback: function ($$v) {
+                                        _vm.description = $$v
+                                      },
+                                      expression: "description",
+                                    },
+                                  }),
+                                  _vm._v(" "),
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.price,
+                                        expression: "price",
+                                      },
+                                    ],
+                                    staticClass: "input-number",
+                                    attrs: {
+                                      min: "1",
+                                      rules: _vm.priceRules,
+                                      name: "price",
+                                      label: "Price",
+                                      "hide-details": "",
+                                      "single-line": "",
+                                      type: "number",
+                                    },
+                                    domProps: { value: _vm.price },
+                                    on: {
+                                      input: function ($event) {
+                                        if ($event.target.composing) {
+                                          return
+                                        }
+                                        _vm.price = $event.target.value
+                                      },
+                                    },
+                                  }),
+                                  _vm._v(" "),
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.quantity,
+                                        expression: "quantity",
+                                      },
+                                    ],
+                                    staticClass: "mt-5 input-number",
+                                    attrs: {
+                                      min: "1",
+                                      rules: _vm.quantityRules,
+                                      name: "quantity",
+                                      label: "Quantity",
+                                      "hide-details": "",
+                                      "single-line": "",
+                                      type: "number",
+                                    },
+                                    domProps: { value: _vm.quantity },
+                                    on: {
+                                      input: function ($event) {
+                                        if ($event.target.composing) {
+                                          return
+                                        }
+                                        _vm.quantity = $event.target.value
+                                      },
+                                    },
+                                  }),
+                                  _vm._v(" "),
+                                  _c("v-file-input", {
+                                    ref: "inputAvatar",
+                                    staticClass: "mt-5",
+                                    attrs: {
+                                      value: _vm.avatar,
+                                      rules: _vm.avatarRules,
+                                      name: "avatar",
+                                      accept:
+                                        "image/png, image/jpeg, image/bmp",
+                                      placeholder:
+                                        "Selectionner une image de produit",
+                                      "prepend-icon": "mdi-camera",
+                                      label: "Avatar",
+                                    },
+                                    on: {
+                                      change: function ($event) {
+                                        return _vm.handleInputAvatar($event)
+                                      },
+                                    },
+                                  }),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-btn",
+                                    {
+                                      staticClass: "mr-4 mt-4",
+                                      attrs: {
+                                        disabled: !_vm.valid,
+                                        color: "success",
+                                        type: "submit",
+                                      },
+                                    },
+                                    [_vm._v("Validate")]
+                                  ),
+                                ],
+                                1
+                              ),
+                            ],
+                            1
                           ),
+                          _vm._v(" "),
+                          _c("v-spacer"),
                         ],
                         1
                       ),
                     ],
                     1
                   ),
-                  _vm._v(" "),
-                  _c("v-spacer"),
                 ],
                 1
               ),
@@ -27671,131 +27877,173 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "v-overlay",
-    { attrs: { value: _vm.editProfileOverlay } },
+    "v-dialog",
+    {
+      attrs: {
+        "hide-overlay": "",
+        color: "transparent",
+        elevation: 0,
+        width: "max-content",
+      },
+      on: {
+        "click:outside": function ($event) {
+          return _vm.$emit("closeOverlayEditProfile", false)
+        },
+        keydown: function ($event) {
+          if (
+            !$event.type.indexOf("key") &&
+            _vm._k($event.keyCode, "esc", 27, $event.key, ["Esc", "Escape"])
+          ) {
+            return null
+          }
+          return _vm.$emit("closeOverlayEditProfile", false)
+        },
+      },
+      model: {
+        value: _vm.editProfileOverlay,
+        callback: function ($$v) {
+          _vm.editProfileOverlay = $$v
+        },
+        expression: "editProfileOverlay",
+      },
+    },
     [
       _c(
-        "v-container",
+        "v-card",
         {
-          staticClass: "relative pa-0",
-          attrs: { fluid: _vm.$vuetify.breakpoint.xs },
+          staticClass: "mx-auto",
+          attrs: { width: "max-content", elevation: 0 },
         },
         [
           _c(
-            "v-row",
+            "v-card-text",
             [
-              _c("v-spacer"),
-              _vm._v(" "),
               _c(
-                "v-col",
-                { staticClass: "pa-0", attrs: { cols: "12" } },
+                "v-container",
                 [
                   _c(
-                    "v-form",
-                    {
-                      ref: "form",
-                      staticClass: "px-3 py-2",
-                      style: _vm.$vuetify.breakpoint.xsOnly
-                        ? "width: 100%"
-                        : "width:600px",
-                      attrs: {
-                        enctype: "multipart/form-data",
-                        "lazy-validation": "",
-                      },
-                      on: {
-                        submit: function ($event) {
-                          $event.preventDefault()
-                          return _vm.validate.apply(null, arguments)
-                        },
-                      },
-                      model: {
-                        value: _vm.valid,
-                        callback: function ($$v) {
-                          _vm.valid = $$v
-                        },
-                        expression: "valid",
-                      },
-                    },
+                    "v-row",
+                    { attrs: { align: "center" } },
                     [
-                      _c("v-text-field", {
-                        attrs: {
-                          counter: 10,
-                          rules: _vm.firstNameRules,
-                          name: "firstName",
-                          label: "First name",
-                          required: "",
-                        },
-                        model: {
-                          value: _vm.firstName,
-                          callback: function ($$v) {
-                            _vm.firstName = $$v
-                          },
-                          expression: "firstName",
-                        },
-                      }),
-                      _vm._v(" "),
-                      _c("v-text-field", {
-                        attrs: {
-                          counter: 10,
-                          rules: _vm.lastNameRules,
-                          name: "lastName",
-                          label: "Last name",
-                          required: "",
-                        },
-                        model: {
-                          value: _vm.lastName,
-                          callback: function ($$v) {
-                            _vm.lastName = $$v
-                          },
-                          expression: "lastName",
-                        },
-                      }),
-                      _vm._v(" "),
-                      _c("v-text-field", {
-                        attrs: {
-                          rules: _vm.emailRules,
-                          label: "E-mail",
-                          name: "email",
-                          required: "",
-                        },
-                        model: {
-                          value: _vm.email,
-                          callback: function ($$v) {
-                            _vm.email = $$v
-                          },
-                          expression: "email",
-                        },
-                      }),
-                      _vm._v(" "),
-                      _c("v-file-input", {
-                        ref: "inputAvatar",
-                        attrs: {
-                          value: _vm.avatar,
-                          rules: _vm.avatarRules,
-                          name: "avatar",
-                          accept: "image/png, image/jpeg, image/bmp",
-                          placeholder: "Selectionner un avatar",
-                          "prepend-icon": "mdi-camera",
-                          label: "Avatar",
-                        },
-                        on: {
-                          change: function ($event) {
-                            return _vm.handleInputAvatar($event)
-                          },
-                        },
-                      }),
-                      _vm._v(" "),
                       _c(
-                        "v-btn",
+                        "v-col",
                         {
-                          staticClass: "mr-4 mt-4",
-                          attrs: {
-                            disabled: !_vm.valid,
-                            color: "success",
-                            type: "submit",
-                          },
+                          staticClass: "pa-0",
+                          attrs: { "align-self": "center", cols: "12" },
                         },
-                        [_vm._v("Validate")]
+                        [
+                          _c(
+                            "v-form",
+                            {
+                              ref: "form",
+                              staticClass: "px-9 py-9 rounded-lg mx-auto",
+                              style: _vm.$vuetify.breakpoint.xsOnly
+                                ? "width: 100%"
+                                : "width:600px",
+                              attrs: {
+                                enctype: "multipart/form-data",
+                                "lazy-validation": "",
+                              },
+                              on: {
+                                submit: function ($event) {
+                                  $event.preventDefault()
+                                  return _vm.validate.apply(null, arguments)
+                                },
+                              },
+                              model: {
+                                value: _vm.valid,
+                                callback: function ($$v) {
+                                  _vm.valid = $$v
+                                },
+                                expression: "valid",
+                              },
+                            },
+                            [
+                              _c("v-text-field", {
+                                attrs: {
+                                  counter: 10,
+                                  rules: _vm.firstNameRules,
+                                  name: "firstName",
+                                  label: "First name",
+                                  required: "",
+                                },
+                                model: {
+                                  value: _vm.firstName,
+                                  callback: function ($$v) {
+                                    _vm.firstName = $$v
+                                  },
+                                  expression: "firstName",
+                                },
+                              }),
+                              _vm._v(" "),
+                              _c("v-text-field", {
+                                attrs: {
+                                  counter: 10,
+                                  rules: _vm.lastNameRules,
+                                  name: "lastName",
+                                  label: "Last name",
+                                  required: "",
+                                },
+                                model: {
+                                  value: _vm.lastName,
+                                  callback: function ($$v) {
+                                    _vm.lastName = $$v
+                                  },
+                                  expression: "lastName",
+                                },
+                              }),
+                              _vm._v(" "),
+                              _c("v-text-field", {
+                                attrs: {
+                                  rules: _vm.emailRules,
+                                  label: "E-mail",
+                                  name: "email",
+                                  required: "",
+                                },
+                                model: {
+                                  value: _vm.email,
+                                  callback: function ($$v) {
+                                    _vm.email = $$v
+                                  },
+                                  expression: "email",
+                                },
+                              }),
+                              _vm._v(" "),
+                              _c("v-file-input", {
+                                ref: "inputAvatar",
+                                attrs: {
+                                  value: _vm.avatar,
+                                  rules: _vm.avatarRules,
+                                  name: "avatar",
+                                  accept: "image/png, image/jpeg, image/bmp",
+                                  placeholder: "Selectionner un avatar",
+                                  "prepend-icon": "mdi-camera",
+                                  label: "Avatar",
+                                },
+                                on: {
+                                  change: function ($event) {
+                                    return _vm.handleInputAvatar($event)
+                                  },
+                                },
+                              }),
+                              _vm._v(" "),
+                              _c(
+                                "v-btn",
+                                {
+                                  staticClass: "mr-4 mt-4",
+                                  attrs: {
+                                    disabled: !_vm.valid,
+                                    color: "success",
+                                    type: "submit",
+                                  },
+                                },
+                                [_vm._v("Validate")]
+                              ),
+                            ],
+                            1
+                          ),
+                        ],
+                        1
                       ),
                     ],
                     1
@@ -27803,8 +28051,6 @@ var render = function () {
                 ],
                 1
               ),
-              _vm._v(" "),
-              _c("v-spacer"),
             ],
             1
           ),
@@ -27839,160 +28085,198 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "v-overlay",
-    { attrs: { value: _vm.registerOverlay } },
+    "v-dialog",
+    {
+      attrs: {
+        transition: false,
+        color: "transparent",
+        elevation: 0,
+        width: "max-content",
+      },
+      on: {
+        "click:outside": function ($event) {
+          return _vm.$emit("closeOverlayInscription", false)
+        },
+        keydown: function ($event) {
+          if (
+            !$event.type.indexOf("key") &&
+            _vm._k($event.keyCode, "esc", 27, $event.key, ["Esc", "Escape"])
+          ) {
+            return null
+          }
+          return _vm.$emit("closeOverlayInscription", false)
+        },
+      },
+      model: {
+        value: _vm.registerOverlay,
+        callback: function ($$v) {
+          _vm.registerOverlay = $$v
+        },
+        expression: "registerOverlay",
+      },
+    },
     [
       _c(
-        "v-container",
+        "v-card",
         {
-          staticClass: "relative pa-0",
-          attrs: { fluid: _vm.$vuetify.breakpoint.xs },
+          staticClass: "mx-auto",
+          attrs: { width: "max-content", elevation: 0 },
         },
         [
           _c(
-            "v-row",
+            "v-card-text",
             [
-              _c("v-spacer"),
-              _vm._v(" "),
               _c(
-                "v-col",
-                { staticClass: "pa-0", attrs: { cols: "12" } },
+                "v-container",
                 [
                   _c(
-                    "v-form",
-                    {
-                      ref: "form",
-                      staticClass: "px-3 py-2",
-                      style: _vm.$vuetify.breakpoint.xsOnly
-                        ? "width: 100%"
-                        : "width:600px",
-                      attrs: {
-                        enctype: "multipart/form-data",
-                        "lazy-validation": "",
-                      },
-                      on: {
-                        submit: function ($event) {
-                          $event.preventDefault()
-                          return _vm.validate.apply(null, arguments)
-                        },
-                      },
-                      model: {
-                        value: _vm.valid,
-                        callback: function ($$v) {
-                          _vm.valid = $$v
-                        },
-                        expression: "valid",
-                      },
-                    },
+                    "v-row",
                     [
-                      _c("v-text-field", {
-                        attrs: {
-                          counter: 10,
-                          rules: _vm.firstNameRules,
-                          name: "firstName",
-                          label: "First name",
-                          required: "",
-                        },
-                        model: {
-                          value: _vm.firstName,
-                          callback: function ($$v) {
-                            _vm.firstName = $$v
-                          },
-                          expression: "firstName",
-                        },
-                      }),
-                      _vm._v(" "),
-                      _c("v-text-field", {
-                        attrs: {
-                          counter: 10,
-                          rules: _vm.lastNameRules,
-                          name: "lastName",
-                          label: "Last name",
-                          required: "",
-                        },
-                        model: {
-                          value: _vm.lastName,
-                          callback: function ($$v) {
-                            _vm.lastName = $$v
-                          },
-                          expression: "lastName",
-                        },
-                      }),
-                      _vm._v(" "),
-                      _c("v-text-field", {
-                        attrs: {
-                          rules: _vm.emailRules,
-                          label: "E-mail",
-                          name: "email",
-                          required: "",
-                        },
-                        model: {
-                          value: _vm.email,
-                          callback: function ($$v) {
-                            _vm.email = $$v
-                          },
-                          expression: "email",
-                        },
-                      }),
-                      _vm._v(" "),
-                      _c("v-text-field", {
-                        attrs: {
-                          "append-icon": _vm.passwordDisplayEyeIcon
-                            ? "mdi-eye"
-                            : "mdi-eye-off",
-                          rules: _vm.passwordRules,
-                          type: _vm.passwordDisplayEyeIcon
-                            ? "text"
-                            : "password",
-                          name: "password",
-                          label: "Password",
-                          hint: "At least 8 characters and upper case character(s)",
-                          counter: "",
-                        },
-                        on: {
-                          "click:append": function ($event) {
-                            _vm.passwordDisplayEyeIcon =
-                              !_vm.passwordDisplayEyeIcon
-                          },
-                        },
-                        model: {
-                          value: _vm.password,
-                          callback: function ($$v) {
-                            _vm.password = $$v
-                          },
-                          expression: "password",
-                        },
-                      }),
-                      _vm._v(" "),
-                      _c("v-file-input", {
-                        ref: "inputAvatar",
-                        attrs: {
-                          value: _vm.avatar,
-                          rules: _vm.avatarRules,
-                          name: "avatar",
-                          accept: "image/png, image/jpeg, image/bmp",
-                          placeholder: "Selectionner un avatar",
-                          "prepend-icon": "mdi-camera",
-                          label: "Avatar",
-                        },
-                        on: {
-                          change: function ($event) {
-                            return _vm.handleInputAvatar($event)
-                          },
-                        },
-                      }),
-                      _vm._v(" "),
                       _c(
-                        "v-btn",
-                        {
-                          staticClass: "mr-4 mt-4",
-                          attrs: {
-                            disabled: !_vm.valid,
-                            color: "success",
-                            type: "submit",
-                          },
-                        },
-                        [_vm._v("Validate")]
+                        "v-col",
+                        { staticClass: "pa-0", attrs: { cols: "12" } },
+                        [
+                          _c(
+                            "v-form",
+                            {
+                              ref: "form",
+                              staticClass: "px-9 py-9 rounded-lg",
+                              style: _vm.$vuetify.breakpoint.xsOnly
+                                ? "width: 100%"
+                                : "width:600px",
+                              attrs: {
+                                enctype: "multipart/form-data",
+                                "lazy-validation": "",
+                              },
+                              on: {
+                                submit: function ($event) {
+                                  $event.preventDefault()
+                                  return _vm.validate.apply(null, arguments)
+                                },
+                              },
+                              model: {
+                                value: _vm.valid,
+                                callback: function ($$v) {
+                                  _vm.valid = $$v
+                                },
+                                expression: "valid",
+                              },
+                            },
+                            [
+                              _c("v-text-field", {
+                                attrs: {
+                                  counter: 10,
+                                  rules: _vm.firstNameRules,
+                                  name: "firstName",
+                                  label: "First name",
+                                  required: "",
+                                },
+                                model: {
+                                  value: _vm.firstName,
+                                  callback: function ($$v) {
+                                    _vm.firstName = $$v
+                                  },
+                                  expression: "firstName",
+                                },
+                              }),
+                              _vm._v(" "),
+                              _c("v-text-field", {
+                                attrs: {
+                                  counter: 10,
+                                  rules: _vm.lastNameRules,
+                                  name: "lastName",
+                                  label: "Last name",
+                                  required: "",
+                                },
+                                model: {
+                                  value: _vm.lastName,
+                                  callback: function ($$v) {
+                                    _vm.lastName = $$v
+                                  },
+                                  expression: "lastName",
+                                },
+                              }),
+                              _vm._v(" "),
+                              _c("v-text-field", {
+                                attrs: {
+                                  rules: _vm.emailRules,
+                                  label: "E-mail",
+                                  name: "email",
+                                  required: "",
+                                },
+                                model: {
+                                  value: _vm.email,
+                                  callback: function ($$v) {
+                                    _vm.email = $$v
+                                  },
+                                  expression: "email",
+                                },
+                              }),
+                              _vm._v(" "),
+                              _c("v-text-field", {
+                                attrs: {
+                                  "append-icon": _vm.passwordDisplayEyeIcon
+                                    ? "mdi-eye"
+                                    : "mdi-eye-off",
+                                  rules: _vm.passwordRules,
+                                  type: _vm.passwordDisplayEyeIcon
+                                    ? "text"
+                                    : "password",
+                                  name: "password",
+                                  label: "Password",
+                                  hint: "At least 8 characters and upper case character(s)",
+                                  counter: "",
+                                },
+                                on: {
+                                  "click:append": function ($event) {
+                                    _vm.passwordDisplayEyeIcon =
+                                      !_vm.passwordDisplayEyeIcon
+                                  },
+                                },
+                                model: {
+                                  value: _vm.password,
+                                  callback: function ($$v) {
+                                    _vm.password = $$v
+                                  },
+                                  expression: "password",
+                                },
+                              }),
+                              _vm._v(" "),
+                              _c("v-file-input", {
+                                ref: "inputAvatar",
+                                attrs: {
+                                  value: _vm.avatar,
+                                  rules: _vm.avatarRules,
+                                  name: "avatar",
+                                  accept: "image/png, image/jpeg, image/bmp",
+                                  placeholder: "Selectionner un avatar",
+                                  "prepend-icon": "mdi-camera",
+                                  label: "Avatar",
+                                },
+                                on: {
+                                  change: function ($event) {
+                                    return _vm.handleInputAvatar($event)
+                                  },
+                                },
+                              }),
+                              _vm._v(" "),
+                              _c(
+                                "v-btn",
+                                {
+                                  staticClass: "mr-4 mt-4",
+                                  attrs: {
+                                    disabled: !_vm.valid,
+                                    color: "success",
+                                    type: "submit",
+                                  },
+                                },
+                                [_vm._v("Validate")]
+                              ),
+                            ],
+                            1
+                          ),
+                        ],
+                        1
                       ),
                     ],
                     1
@@ -28000,8 +28284,6 @@ var render = function () {
                 ],
                 1
               ),
-              _vm._v(" "),
-              _c("v-spacer"),
             ],
             1
           ),
@@ -29136,6 +29418,9 @@ var render = function () {
                   addArticleSuccess: function ($event) {
                     _vm.addArticleOverlay = false
                   },
+                  closeOverlayAddArticle: function ($event) {
+                    _vm.addArticleOverlay = false
+                  },
                 },
               })
             : _vm._e(),
@@ -29149,6 +29434,9 @@ var render = function () {
                 },
                 on: {
                   editArticleSuccess: function ($event) {
+                    _vm.editArticleOverlay = false
+                  },
+                  closeOverlayEditArticle: function ($event) {
                     _vm.editArticleOverlay = false
                   },
                 },

@@ -1,73 +1,83 @@
 <template>
-  <v-overlay :value="addArticleOverlay">
-    <v-container :fluid="$vuetify.breakpoint.xs" class="relative pa-0">
-      <v-row>
-        <v-spacer></v-spacer>
-        <v-col cols="12" class="pa-0">
-          <v-form
-            ref="form"
-            class="px-3 py-2"
-            :style="$vuetify.breakpoint.xsOnly ? 'width: 100%' : 'width:600px'"
-            enctype="multipart/form-data"
-            v-model="valid"
-            lazy-validation
-            @submit.prevent="validate"
-          >
-            <v-text-field
-              v-model="name"
-              :counter="30"
-              :rules="nameRules"
-              name="name"
-              label="Article name"
-              required
-            ></v-text-field>
-            <v-text-field
-              v-model="description"
-              :counter="200"
-              :rules="descriptionRules"
-              name="description"
-              label="Description"
-              required
-            ></v-text-field>
-            <input
-              v-model="price"
-              min="1"
-              name="price"
-              label="Price"
-              hide-details
-              single-line
-              type="number"
-              class="input-number"
-            />
-            <input
-              v-model="quantity"
-              min="1"
-              name="quantity"
-              label="Quantity"
-              hide-details
-              single-line
-              type="number"
-              class="mt-5 input-number"
-            />
-            <v-file-input
-              @change="handleInputAvatar($event)"
-              :value="avatar"
-              ref="inputAvatar"
-              :rules="avatarRules"
-              name="avatar"
-              accept="image/png, image/jpeg, image/bmp"
-              placeholder="Selectionner une image de produit"
-              prepend-icon="mdi-camera"
-              label="Avatar"
-              class="mt-5 "
-            ></v-file-input>
-            <v-btn :disabled="!valid" color="success" type="submit" class="mr-4 mt-4">Validate</v-btn>
-          </v-form>
-        </v-col>
-        <v-spacer></v-spacer>
-      </v-row>
-    </v-container>
-  </v-overlay>
+  <v-dialog
+    :transition="false"
+    v-model="addArticleOverlay"
+    @click:outside="$emit('closeOverlayAddArticle', false)"
+    @keydown.esc="$emit('closeOverlayAddArticle', false)"
+    color="transparent"
+    :elevation="0"
+    width="max-content"
+  >
+    <v-card width="max-content" class="mx-auto" :elevation="0">
+      <v-card-text>
+        <v-container>
+          <v-row>
+            <v-col cols="12" class="pa-0">
+              <v-form
+                ref="form"
+                class="px-9 py-9 py-2 rounded-lg"
+                :style="$vuetify.breakpoint.xsOnly ? 'width: 100%' : 'width:600px'"
+                enctype="multipart/form-data"
+                v-model="valid"
+                lazy-validation
+                @submit.prevent="validate"
+              >
+                <v-text-field
+                  v-model="name"
+                  :counter="30"
+                  :rules="nameRules"
+                  name="name"
+                  label="Article name"
+                  required
+                ></v-text-field>
+                <v-text-field
+                  v-model="description"
+                  :counter="200"
+                  :rules="descriptionRules"
+                  name="description"
+                  label="Description"
+                  required
+                ></v-text-field>
+                <input
+                  v-model="price"
+                  min="1"
+                  name="price"
+                  label="Price"
+                  hide-details
+                  single-line
+                  type="number"
+                  class="input-number"
+                />
+                <input
+                  v-model="quantity"
+                  min="1"
+                  name="quantity"
+                  label="Quantity"
+                  hide-details
+                  single-line
+                  type="number"
+                  class="mt-5 input-number"
+                />
+                <v-file-input
+                  @change="handleInputAvatar($event)"
+                  :value="avatar"
+                  ref="inputAvatar"
+                  :rules="avatarRules"
+                  name="avatar"
+                  accept="image/png, image/jpeg, image/bmp"
+                  placeholder="Selectionner une image de produit"
+                  prepend-icon="mdi-camera"
+                  label="Avatar"
+                  class="mt-5"
+                ></v-file-input>
+                <v-btn :disabled="!valid" color="success" type="submit" class="mr-4 mt-4">Validate</v-btn>
+              </v-form>
+            </v-col>
+          </v-row>
+        </v-container>
+      </v-card-text>
+    </v-card>
+  </v-dialog>
 </template>
 
 <script>
@@ -76,7 +86,7 @@ export default {
   name: 'addArticleOverlay',
   props: {
     'addArticleOverlay': { type: Boolean },
-    'refreshShop': {type: Function}
+    'refreshShop': { type: Function }
   },
   data: () => ({
     valid: true,
@@ -139,18 +149,17 @@ export default {
   width: 100%;
   transition: all ease-out 450ms;
 }
-.input-number:hover{
+.input-number:hover {
   border-color: #eee;
   border-bottom: 1.5px solid #eee;
   color: #eee;
   transition: all ease-out 450ms;
-  
 }
-.input-number:focus{
+.input-number:focus {
   border-color: #1976d2;
   border-bottom: 1.5px solid #1976d2;
   color: #1976d2;
-  
+
   transition: all ease-out 450ms;
 }
 </style>

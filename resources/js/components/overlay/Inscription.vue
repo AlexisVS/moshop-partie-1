@@ -1,64 +1,80 @@
 <template>
-  <v-overlay :value="registerOverlay">
-    <v-container :fluid="$vuetify.breakpoint.xs" class="relative pa-0">
-      <v-row>
-        <v-spacer></v-spacer>
-        <v-col cols="12" class="pa-0">
-          <v-form
-            ref="form"
-            class="px-3 py-2"
-            :style="$vuetify.breakpoint.xsOnly ? 'width: 100%' : 'width:600px'"
-            enctype="multipart/form-data"
-            v-model="valid"
-            lazy-validation
-            @submit.prevent="validate"
-          >
-            <v-text-field
-              v-model="firstName"
-              :counter="10"
-              :rules="firstNameRules"
-              name="firstName"
-              label="First name"
-              required
-            ></v-text-field>
-            <v-text-field
-              v-model="lastName"
-              :counter="10"
-              :rules="lastNameRules"
-              name="lastName"
-              label="Last name"
-              required
-            ></v-text-field>
-            <v-text-field v-model="email" :rules="emailRules" label="E-mail" name="email" required></v-text-field>
-            <v-text-field
-              v-model="password"
-              :append-icon="passwordDisplayEyeIcon ? 'mdi-eye' : 'mdi-eye-off'"
-              :rules="passwordRules"
-              :type="passwordDisplayEyeIcon ? 'text' : 'password'"
-              name="password"
-              label="Password"
-              hint="At least 8 characters and upper case character(s)"
-              counter
-              @click:append="passwordDisplayEyeIcon = !passwordDisplayEyeIcon"
-            ></v-text-field>
-            <v-file-input
-              @change="handleInputAvatar($event)"
-              :value="avatar"
-              ref="inputAvatar"
-              :rules="avatarRules"
-              name="avatar"
-              accept="image/png, image/jpeg, image/bmp"
-              placeholder="Selectionner un avatar"
-              prepend-icon="mdi-camera"
-              label="Avatar"
-            ></v-file-input>
-            <v-btn :disabled="!valid" color="success" type="submit" class="mr-4 mt-4">Validate</v-btn>
-          </v-form>
-        </v-col>
-        <v-spacer></v-spacer>
-      </v-row>
-    </v-container>
-  </v-overlay>
+  <v-dialog
+    :transition="false"
+    @click:outside="$emit('closeOverlayInscription', false)"
+    @keydown.esc="$emit('closeOverlayInscription', false)"
+    v-model="registerOverlay"
+    color="transparent"
+    :elevation="0"
+    width="max-content"
+  >
+    <v-card width="max-content" class="mx-auto" :elevation="0">
+      <v-card-text>
+        <v-container>
+          <v-row>
+            <v-col cols="12" class="pa-0">
+              <v-form
+                ref="form"
+                class="px-9 py-9 rounded-lg"
+                :style="$vuetify.breakpoint.xsOnly ? 'width: 100%' : 'width:600px'"
+                enctype="multipart/form-data"
+                v-model="valid"
+                lazy-validation
+                @submit.prevent="validate"
+              >
+                <v-text-field
+                  v-model="firstName"
+                  :counter="10"
+                  :rules="firstNameRules"
+                  name="firstName"
+                  label="First name"
+                  required
+                ></v-text-field>
+                <v-text-field
+                  v-model="lastName"
+                  :counter="10"
+                  :rules="lastNameRules"
+                  name="lastName"
+                  label="Last name"
+                  required
+                ></v-text-field>
+                <v-text-field
+                  v-model="email"
+                  :rules="emailRules"
+                  label="E-mail"
+                  name="email"
+                  required
+                ></v-text-field>
+                <v-text-field
+                  v-model="password"
+                  :append-icon="passwordDisplayEyeIcon ? 'mdi-eye' : 'mdi-eye-off'"
+                  :rules="passwordRules"
+                  :type="passwordDisplayEyeIcon ? 'text' : 'password'"
+                  name="password"
+                  label="Password"
+                  hint="At least 8 characters and upper case character(s)"
+                  counter
+                  @click:append="passwordDisplayEyeIcon = !passwordDisplayEyeIcon"
+                ></v-text-field>
+                <v-file-input
+                  @change="handleInputAvatar($event)"
+                  :value="avatar"
+                  ref="inputAvatar"
+                  :rules="avatarRules"
+                  name="avatar"
+                  accept="image/png, image/jpeg, image/bmp"
+                  placeholder="Selectionner un avatar"
+                  prepend-icon="mdi-camera"
+                  label="Avatar"
+                ></v-file-input>
+                <v-btn :disabled="!valid" color="success" type="submit" class="mr-4 mt-4">Validate</v-btn>
+              </v-form>
+            </v-col>
+          </v-row>
+        </v-container>
+      </v-card-text>
+    </v-card>
+  </v-dialog>
 </template>
 
 <script>

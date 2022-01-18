@@ -49,16 +49,19 @@
             <Inscription
               :registerOverlay="registerOverlay"
               @registerSuccess="registerOverlay = false; loadProfile(); $router.push('/')"
+              @closeOverlayInscription="registerOverlay = false"
             />
             <Connexion
               :loginOverlay="loginOverlay"
               @loginSuccess="loginOverlay = false; loadProfile()"
+              @closeOverlayConnexion="loginOverlay = false"
             />
             <EditProfile
               v-if="profile"
               :editProfileOverlay="editProfileOverlay"
               :profile="profile"
               @editProfileSuccess="editProfileOverlay = false; loadProfile()"
+              @closeOverlayEditProfile="editProfileOverlay = false"
             />
             <router-view
               :key="$route.fullPath"

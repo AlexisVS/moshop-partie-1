@@ -44,6 +44,7 @@
       :addArticleOverlay="addArticleOverlay"
       @addArticleSuccess="addArticleOverlay = false"
       :refreshShop="loadMyShop"
+      @closeOverlayAddArticle="addArticleOverlay = false"
     />
     <EditArticle
       v-if="editArticleOverlay"
@@ -51,6 +52,7 @@
       :editArticleOverlay="editArticleOverlay"
       @editArticleSuccess="editArticleOverlay = false"
       :refreshShop="loadMyShop"
+      @closeOverlayEditArticle="editArticleOverlay = false"
     />
   </v-container>
 </template>
