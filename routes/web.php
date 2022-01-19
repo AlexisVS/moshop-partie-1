@@ -32,7 +32,7 @@ use Illuminate\Support\Facades\Route;
 /* !                    Changer l'url des routes pour l'exo 2                   */
 /* ! -------------------------------------------------------------------------- */
 
-Route::prefix('/app')->group(function () {
+Route::name('app.')->prefix('/app')->group(function () {
   // /register les 3 se trouvent dans auth.php
   // /login les 3 se trouvent dans auth.php
   // /logout les 3 se trouvent dans auth.php

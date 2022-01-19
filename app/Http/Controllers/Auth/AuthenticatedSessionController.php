@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthenticatedSessionController extends Controller
 {
+
     /**
      * Display the login view.
      *
@@ -24,7 +25,7 @@ class AuthenticatedSessionController extends Controller
      * Handle an incoming authentication request.
      *
      * @param  \App\Http\Requests\Auth\LoginRequest  $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\Response
      */
     public function store(LoginRequest $request)
     {
@@ -32,7 +33,15 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+
+
+        /* -------------------------------------------------------------------------- */
+        /*                                     ME                                     */
+        // Auth::login()
+        return response()->json([
+            'token' => auth()->user()->createToken('bonjourToken')->plainTextToken
+        ], 200);
+        /* -------------------------------------------------------------------------- */
     }
 
     /**
@@ -48,6 +57,8 @@ class AuthenticatedSessionController extends Controller
         $request->session()->invalidate();
 
         $request->session()->regenerateToken();
+
+        auth()->user()->tokens()->delete();
 
         return redirect('/');
     }

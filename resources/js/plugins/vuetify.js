@@ -21,8 +21,8 @@ const options = {
     }
   },
   icons: {
-    iconfont: "mdi"
-  }
+    iconfont: "mdi",
+  },
 };
 
 export default new Vuetify(options);
