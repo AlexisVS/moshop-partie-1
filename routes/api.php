@@ -34,13 +34,13 @@ Route::name('api.auth.')->group(function () {
   Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 });
 
+Route::get('/home', [HomeController::class, 'index']); // shop par defaut
+
 Route::name('api.')->middleware(['auth:sanctum'])->group(function () {
 
   Route::get('/profile', [ProfileController::class, 'show']);
   Route::post('/edit-profile', [ProfileController::class, 'update']);
   Route::put('/update-img-profile', [ProfileController::class, 'updateImageProfile']);
-
-  Route::get('/home', [HomeController::class, 'index']); // shop par defaut
 
   Route::get('/my-shop', [ShopController::class, 'showMyShop']); // Shop de l'utilisateur authentifier
   Route::get('/shops', [ShopController::class, 'index']); // All shops

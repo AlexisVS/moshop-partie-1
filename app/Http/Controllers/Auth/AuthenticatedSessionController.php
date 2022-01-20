@@ -58,7 +58,7 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
-        auth()->user()->tokens()->delete();
+        // auth()->user()->tokens()->delete();
 
         return redirect('/');
     }
