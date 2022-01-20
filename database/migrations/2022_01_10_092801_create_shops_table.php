@@ -17,6 +17,7 @@ class CreateShopsTable extends Migration
             $table->id();
             $table->string('name');
             $table->foreignId('user_id')->constrained();
+            $table->foreign('user_id')->references('user_id')->on('users');
             $table->timestamps();
         });
     }

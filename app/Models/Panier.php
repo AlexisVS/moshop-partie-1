@@ -10,4 +10,5 @@ class Panier extends Model
     use HasFactory;
     protected $table = 'paniers';
     protected $guarded = false;
+
 }
