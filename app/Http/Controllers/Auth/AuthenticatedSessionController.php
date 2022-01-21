@@ -39,9 +39,10 @@ class AuthenticatedSessionController extends Controller
         /*                                     ME                                     */
         // Auth::login()
         // return response()->json([
-        //     'token' => auth()->user()->createToken('bonjourToken')->plainTextToken
         // ], 200);
-        return responder()->success(auth()->user())->respond(200);
+        return responder()->success([
+            'token' => auth()->user()->createToken('bonjourToken')->plainTextToken
+        ])->respond(200);
         /* -------------------------------------------------------------------------- */
     }
 
